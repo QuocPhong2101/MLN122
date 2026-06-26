@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import appleEcosystemLockedImg from '../assets/apple_ecosystem_locked.png'
 
 /* ─── Apple-style nav items ─────────────────── */
 const NAV_ITEMS = [
@@ -9,6 +10,15 @@ const NAV_ITEMS = [
   { id: 'price-low',  label: 'Giá ĐQ thấp' },
   { id: 'compare',   label: 'So sánh' },
   { id: 'theory',    label: 'Lý thuyết' },
+]
+
+const ECO_ITEMS = [
+  { id: 'app-store', name: 'App Store', icon: '🏪', x: 320, y: 200, color: '#0071e3', desc: 'Cửa hàng ứng dụng duy nhất trên iOS. Apple thu phí 30% đối với lập trình viên và cấm tải phần mềm từ nguồn bên ngoài (sideloading) để kiểm soát 100% doanh thu.' },
+  { id: 'icloud', name: 'iCloud', icon: '☁️', x: 260, y: 304, color: '#30d158', desc: 'Dịch vụ lưu trữ đám mây tích hợp sâu. Đồng bộ ảnh, danh bạ, sao lưu thiết bị. Rất khó chuyển dữ liệu sang Android vì không có giải pháp chính thức từ Apple.' },
+  { id: 'apple-watch', name: 'Apple Watch', icon: '⌚', x: 140, y: 304, color: '#ffd60a', desc: 'Đồng hồ thông minh bán chạy nhất thế giới, nhưng chỉ cho phép kết nối đầy đủ tính năng với iPhone. Người dùng đổi sang điện thoại Android sẽ mất luôn đồng hồ.' },
+  { id: 'apple-pay', name: 'Apple Pay', icon: '💳', x: 80, y: 200, color: '#ff3b30', desc: 'Ví điện tử độc quyền được quyền truy cập chip thanh toán NFC trên iPhone. Apple ngăn chặn các ứng dụng ngân hàng và ví điện tử đối thủ tiếp cận hạ tầng.' },
+  { id: 'imessage', name: 'iMessage & FaceTime', icon: '💬', x: 140, y: 96, color: '#ff9500', desc: 'Nhắn tin và gọi điện miễn phí giữa các thiết bị Apple. Sử dụng bóng tin nhắn màu xanh lá và giảm chất lượng ảnh gửi từ Android để tạo rào cản tâm lý.' },
+  { id: 'airpods', name: 'AirPods', icon: '🎧', x: 260, y: 96, color: '#a855f7', desc: 'Tai nghe tự động kết nối và chuyển đổi cực nhanh giữa các thiết bị Apple cùng iCloud. Khi dùng trên Android, AirPods mất hầu hết tính năng tiện ích.' }
 ]
 
 /* ─── Intersection-observer fade helper ─────── */
@@ -45,25 +55,11 @@ function useActive(ids) {
   return active
 }
 
-/* ─── Modal ─────────────────────────────────── */
-function Modal({ open, onClose, title, children }) {
-  if (!open) return null
-  return (
-    <div className="ap-modal-overlay" onClick={onClose}>
-      <div className="ap-modal" onClick={e => e.stopPropagation()}>
-        <button className="ap-modal-close" onClick={onClose}>✕</button>
-        <div className="ap-modal-title">{title}</div>
-        {children}
-      </div>
-    </div>
-  )
-}
-
 /* ─── Main component ─────────────────────────── */
 export default function ApplePage() {
   const pageRef = useRef(null)
-  const [ecoOpen, setEcoOpen] = useState(false)
   const [navScrolled, setNavScrolled] = useState(false)
+  const [selectedEco, setSelectedEco] = useState(ECO_ITEMS[0])
   const active = useActive(NAV_ITEMS.map(n => n.id))
   useFadeIn(pageRef)
 
@@ -77,10 +73,34 @@ export default function ApplePage() {
 
   return (
     <div className="ap-root" ref={pageRef}>
+      
+      {/* Styles for ecosystem connection map */}
+      <style>{`
+        .eco-node {
+          cursor: pointer;
+        }
+        .eco-node circle {
+          transition: fill 0.3s, r 0.3s, filter 0.3s;
+        }
+        .eco-node:hover circle {
+          r: 10px;
+          filter: drop-shadow(0 0 8px var(--eco-color));
+        }
+        .eco-node--active circle {
+          fill: var(--eco-color) !important;
+          r: 10px;
+          filter: drop-shadow(0 0 10px var(--eco-color));
+        }
+        .eco-line-glow {
+          stroke-dasharray: 5;
+          animation: eco-pulse 2s linear infinite;
+        }
+        @keyframes eco-pulse {
+          to { stroke-dashoffset: -20; }
+        }
+      `}</style>
 
-      {/* ══════════════════════════════════════
-          STICKY TOP NAV  (Apple.com style)
-      ══════════════════════════════════════ */}
+      {/* Sticky top nav (Apple style) */}
       <nav className={`ap-nav ${navScrolled ? 'ap-nav--scrolled' : ''}`}>
         <div className="ap-nav-inner">
           <Link to="/" className="ap-nav-back">
@@ -105,9 +125,7 @@ export default function ApplePage() {
         </div>
       </nav>
 
-      {/* ══════════════════════════════════════
-          HERO
-      ══════════════════════════════════════ */}
+      {/* Hero */}
       <section id="hero" className="ap-hero">
         <div className="ap-hero-eyebrow ap-fade">Case Study · MLN122 Chương 4</div>
         <h1 className="ap-hero-title ap-slide-up">Apple.</h1>
@@ -134,9 +152,7 @@ export default function ApplePage() {
         <div className="ap-hero-glow" />
       </section>
 
-      {/* ══════════════════════════════════════
-          SECTION 1 — JOURNEY  (dark bg)
-      ══════════════════════════════════════ */}
+      {/* SECTION 1 — JOURNEY */}
       <section id="journey" className="ap-section ap-section--dark">
         <div className="ap-container">
           <p className="ap-eyebrow ap-fade">Phân tích 01</p>
@@ -167,16 +183,26 @@ export default function ApplePage() {
             ))}
           </div>
 
-          <blockquote className="ap-quote ap-fade">
-            <p>"Tự do cạnh tranh đẻ ra tập trung sản xuất và sự tập trung sản xuất khi phát triển đến một mức độ nhất định lại dẫn tới độc quyền."</p>
-            <cite>— V.I. Lênin</cite>
-          </blockquote>
+          {/* Text and image block */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 32, alignItems: 'center', textAlign: 'left', marginTop: 56 }}>
+            <div>
+              <blockquote className="ap-quote ap-fade" style={{ margin: 0, marginBottom: 20 }}>
+                <p>"Tự do cạnh tranh đẻ ra tập trung sản xuất và sự tập trung sản xuất khi phát triển đến một mức độ nhất định lại dẫn tới độc quyền."</p>
+                <cite>— V.I. Lênin</cite>
+              </blockquote>
+              <p style={{ fontSize: 18, color: '#a1a1a6', lineHeight: 1.7 }}>
+                Bằng cách kết nối chặt chẽ giữa phần cứng độc quyền và hệ điều hành iOS khép kín, Apple tạo ra một rào cản chuyển đổi khổng lồ. 
+                Người dùng khi đã lỡ sở hữu nhiều thiết bị Apple sẽ không thể rời đi vì chi phí từ bỏ hệ sinh thái là quá đắt đỏ và phiền phức.
+              </p>
+            </div>
+            <div className="ap-fade" style={{ borderRadius: 18, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)' }}>
+              <img src={appleEcosystemLockedImg} alt="Locked Ecosystem Orbit illustration" style={{ width: '100%', display: 'block' }} />
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════
-          SECTION 2 — GIÁ CAO  (light bg)
-      ══════════════════════════════════════ */}
+      {/* SECTION 2 — GIÁ CAO */}
       <section id="price-high" className="ap-section ap-section--light">
         <div className="ap-container">
           <p className="ap-eyebrow ap-fade" style={{ color: '#1d1d1f' }}>Phân tích 02</p>
@@ -204,18 +230,91 @@ export default function ApplePage() {
             ))}
           </div>
 
-          {/* Ecosystem button */}
-          <div style={{ textAlign: 'center', marginTop: 48 }}>
-            <button className="ap-btn-primary ap-fade" onClick={() => setEcoOpen(true)}>
-              Khám phá Hệ sinh thái Apple →
-            </button>
+          {/* Interactive Apple Ecosystem Map */}
+          <div style={{ marginTop: 80 }}>
+            <p className="ap-eyebrow" style={{ color: '#1d1d1f' }}>Tương tác hệ sinh thái</p>
+            <h3 style={{ fontSize: '24px', fontWeight: 700, color: '#1d1d1f', marginBottom: 12 }}>
+              Cơ Chế "Khóa Người Dùng" Của Apple
+            </h3>
+            <p style={{ fontSize: '18px', color: '#6e6e73', maxWidth: '640px', margin: '0 auto 40px', lineHeight: 1.6 }}>
+              Bấm vào các dịch vụ và thiết bị xung quanh iPhone để xem cách Apple bủa vây người dùng và cản trở đối thủ cạnh tranh.
+            </p>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, alignItems: 'center', margin: '0 auto', maxWidth: '900px', background: '#000', borderRadius: 24, padding: '32px 24px', border: '1px solid rgba(255,255,255,0.05)' }}>
+              
+              {/* Left Column: SVG Orbit connection map */}
+              <div style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
+                <svg width="400" height="400" viewBox="0 0 400 400">
+                  {/* Central Node (iPhone) */}
+                  <g transform="translate(200, 200)">
+                    <circle cx="0" cy="0" r="50" fill="#111" stroke="#0071e3" strokeWidth="2.5" />
+                    <text x="0" y="5" textAnchor="middle" fill="#fff" fontSize="16" fontWeight="bold">iPhone</text>
+                  </g>
+
+                  {/* Pulsing connection line to selected */}
+                  <line
+                    x1="200"
+                    y1="200"
+                    x2={selectedEco.x}
+                    y2={selectedEco.y}
+                    stroke={selectedEco.color}
+                    strokeWidth="3.5"
+                    className="eco-line-glow"
+                  />
+
+                  {/* Other connection lines (static) */}
+                  {ECO_ITEMS.filter(item => item.id !== selectedEco.id).map(item => (
+                    <line
+                      key={`line-${item.id}`}
+                      x1="200"
+                      y1="200"
+                      x2={item.x}
+                      y2={item.y}
+                      stroke="rgba(255,255,255,0.12)"
+                      strokeWidth="1.5"
+                    />
+                  ))}
+
+                  {/* Orbit nodes */}
+                  {ECO_ITEMS.map(item => (
+                    <g
+                      key={item.id}
+                      className={`eco-node ${selectedEco.id === item.id ? 'eco-node--active' : ''}`}
+                      transform={`translate(${item.x}, ${item.y})`}
+                      style={{ '--eco-color': item.color }}
+                      onClick={() => setSelectedEco(item)}
+                    >
+                      <circle cx="0" cy="0" r="20" fill="#1c1c1e" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5" />
+                      <text x="0" y="6" textAnchor="middle" fontSize="16">{item.icon}</text>
+                    </g>
+                  ))}
+                </svg>
+              </div>
+
+              {/* Right Column: Connection details display */}
+              <div style={{ textAlign: 'left', minHeight: '260px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <span style={{ fontSize: '14px', fontWeight: 700, color: selectedEco.color, textTransform: 'uppercase', letterSpacing: '0.1em', display: 'block', marginBottom: 8 }}>
+                  KẾT NỐI HỆ SINH THÁI
+                </span>
+                <h4 style={{ fontSize: '23px', fontWeight: 800, color: '#f5f5f7', marginBottom: 12 }}>
+                  {selectedEco.icon} {selectedEco.name}
+                </h4>
+                <p style={{ fontSize: '18px', color: '#a1a1a6', lineHeight: 1.6, margin: 0 }}>
+                  {selectedEco.desc}
+                </p>
+                <div style={{ marginTop: 24, padding: '12px 16px', background: 'rgba(255,255,255,0.03)', borderRadius: '10px', borderLeft: `3px solid ${selectedEco.color}` }}>
+                  <span style={{ fontSize: '15px', color: '#a1a1a6' }}>
+                    <strong>Biểu hiện độc quyền:</strong> Hạn chế lựa chọn của khách hàng và ép nhà sản xuất phần mềm phải chấp nhận luật lệ riêng của Apple.
+                  </span>
+                </div>
+              </div>
+
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════
-          SECTION 3 — GIÁ THẤP  (dark bg)
-      ══════════════════════════════════════ */}
+      {/* SECTION 3 — GIÁ THẤP */}
       <section id="price-low" className="ap-section ap-section--dark">
         <div className="ap-container">
           <p className="ap-eyebrow ap-fade">Phân tích 03</p>
@@ -270,17 +369,15 @@ export default function ApplePage() {
 
           <div className="ap-verdict ap-fade">
             <span className="ap-verdict-icon">⚖️</span>
-            <p>
-              <strong>Kết luận Lênin:</strong> Apple thu "giá mua độc quyền thấp" từ cả nhà cung cấp lẫn lập trình viên — 
+            <p style={{ fontSize: '18px', color: '#a1a1a6', lineHeight: '1.7', textAlign: 'left' }}>
+              <strong style={{ color: '#f5f5f7' }}>Kết luận Lênin:</strong> Apple thu "giá mua độc quyền thấp" từ cả nhà cung cấp lẫn lập trình viên — 
               đây là nguồn gốc của lợi nhuận độc quyền khổng lồ, bên cạnh giá bán cao đối với người tiêu dùng.
             </p>
           </div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════
-          SECTION 4 — SO SÁNH  (light bg)
-      ══════════════════════════════════════ */}
+      {/* SECTION 4 — SO SÁNH */}
       <section id="compare" className="ap-section ap-section--light">
         <div className="ap-container">
           <p className="ap-eyebrow ap-fade" style={{ color: '#1d1d1f' }}>Phân tích 04</p>
@@ -327,9 +424,7 @@ export default function ApplePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════
-          SECTION 5 — LÝ THUYẾT  (gradient)
-      ══════════════════════════════════════ */}
+      {/* SECTION 5 — LÝ THUYẾT */}
       <section id="theory" className="ap-section ap-section--gradient">
         <div className="ap-container">
           <p className="ap-eyebrow ap-fade">Liên hệ Lý thuyết</p>
@@ -339,14 +434,14 @@ export default function ApplePage() {
 
           <div className="ap-theory-grid ap-fade">
             {[
-              { icon: '📈', theory: 'Tập trung sản xuất → Độc quyền', apple: 'Apple thống trị phân khúc cao cấp sau khi hàng loạt đối thủ (Nokia, BlackBerry, LG) rút lui.', link: '/' },
-              { icon: '💰', theory: 'Giá bán độc quyền cao', apple: 'iPhone, MacBook, Apple Watch — giá cao hơn chi phí sản xuất rất nhiều lần.', link: '/' },
-              { icon: '📉', theory: 'Giá mua độc quyền thấp', apple: 'App Store 30% + ép Foxconn, Samsung Display giảm giá — thu lợi nhuận độc quyền.', link: '/' },
-              { icon: '💎', theory: 'Tư bản tài chính & Đầu sỏ', apple: 'Apple nắm hàng trăm tỷ USD tiền mặt, chi phối nhiều ngành từ chip đến nội dung số.', link: '/' },
-              { icon: '🌏', theory: 'Xuất khẩu tư bản phổ biến', apple: 'Apple đầu tư nhà máy và trung tâm dữ liệu tại Việt Nam, Ấn Độ, Ireland...', link: '/' },
-              { icon: '⚔️', theory: 'Độc quyền không thủ tiêu cạnh tranh', apple: 'Apple vẫn cạnh tranh gay gắt với Samsung, Google — nhưng cạnh tranh ở cấp độ tập đoàn khổng lồ.', link: '/' },
+              { icon: '📈', theory: 'Tập trung sản xuất → Độc quyền', apple: 'Apple thống trị phân khúc cao cấp sau khi hàng loạt đối thủ (Nokia, BlackBerry, LG) rút lui.', link: '/#khai-niem' },
+              { icon: '💰', theory: 'Giá bán độc quyền cao', apple: 'iPhone, MacBook, Apple Watch — giá cao hơn chi phí sản xuất rất nhiều lần.', link: '/#gia-ca' },
+              { icon: '📉', theory: 'Giá mua độc quyền thấp', apple: 'App Store 30% + ép Foxconn, Samsung Display giảm giá — thu lợi nhuận độc quyền.', link: '/#gia-ca' },
+              { icon: '💎', theory: 'Tư bản tài chính & Đầu sỏ', apple: 'Apple nắm hàng trăm tỷ USD tiền mặt, chi phối nhiều ngành từ chip đến nội dung số.', link: '/#5-diem' },
+              { icon: '🌏', theory: 'Xuất khẩu tư bản phổ biến', apple: 'Apple đầu tư nhà máy và trung tâm dữ liệu tại Việt Nam, Ấn Độ, Ireland...', link: '/#5-diem' },
+              { icon: '⚔️', theory: 'Độc quyền không thủ tiêu cạnh tranh', apple: 'Apple vẫn cạnh tranh gay gắt với Samsung, Google — nhưng cạnh tranh ở cấp độ tập đoàn khổng lồ.', link: '/#canh-tranh' },
             ].map((item, i) => (
-              <div key={i} className="ap-theory-card">
+              <div key={i} className="ap-theory-card" style={{ background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.06)' }}>
                 <div className="ap-theory-icon">{item.icon}</div>
                 <div className="ap-theory-body">
                   <div className="ap-theory-label">Lý thuyết</div>
@@ -361,9 +456,7 @@ export default function ApplePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════
-          CTA FOOTER
-      ══════════════════════════════════════ */}
+      {/* CTA FOOTER */}
       <section className="ap-cta ap-fade">
         <h2 className="ap-cta-title">Kiểm tra kiến thức.</h2>
         <p className="ap-cta-sub">20 câu trắc nghiệm · Cạnh tranh & Độc quyền</p>
@@ -372,35 +465,6 @@ export default function ApplePage() {
           <Link to="/" className="ap-btn-ghost">← Ôn lại Lý thuyết</Link>
         </div>
       </section>
-
-      {/* ══════════════════════════════════════
-          MODAL — Hệ sinh thái
-      ══════════════════════════════════════ */}
-      <Modal open={ecoOpen} onClose={() => setEcoOpen(false)} title="Hệ sinh thái Apple">
-        <p style={{ fontSize: 14, color: '#6e6e73', marginBottom: 20, lineHeight: 1.6 }}>
-          Apple xây dựng một vòng khép kín — mỗi sản phẩm kéo người dùng gắn bó sâu hơn với hệ sinh thái.
-        </p>
-        <div className="ap-eco-grid">
-          {[
-            { icon: '📱', name: 'iPhone', desc: 'Cửa ngõ vào hệ sinh thái Apple' },
-            { icon: '💻', name: 'MacBook', desc: 'Đồng bộ hoàn hảo với iPhone & iPad' },
-            { icon: '☁️', name: 'iCloud', desc: 'Khoá dữ liệu cá nhân trên đám mây Apple' },
-            { icon: '🎵', name: 'Apple Music', desc: 'Cạnh tranh Spotify — ưu tiên trên thiết bị Apple' },
-            { icon: '🏪', name: 'App Store', desc: 'Cổng DUY NHẤT cài app trên iOS — thu 30%' },
-            { icon: '💳', name: 'Apple Pay', desc: 'Thanh toán độc quyền trong hệ sinh thái' },
-            { icon: '⌚', name: 'Apple Watch', desc: 'Chỉ hoạt động đầy đủ với iPhone' },
-            { icon: '📺', name: 'Apple TV+', desc: 'Nội dung độc quyền chỉ trên thiết bị Apple' },
-          ].map(item => (
-            <div key={item.name} className="ap-eco-item">
-              <span className="ap-eco-icon">{item.icon}</span>
-              <div>
-                <div className="ap-eco-name">{item.name}</div>
-                <div className="ap-eco-desc">{item.desc}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Modal>
     </div>
   )
 }

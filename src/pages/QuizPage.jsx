@@ -226,6 +226,7 @@ export default function QuizPage() {
   const [score, setScore] = useState(0)
   const [finished, setFinished] = useState(false)
   const [answers, setAnswers] = useState([])
+  const [showReview, setShowReview] = useState(false)
 
   const q = QUESTIONS[current]
   const progress = ((current) / QUESTIONS.length) * 100
@@ -256,6 +257,7 @@ export default function QuizPage() {
     setScore(0)
     setFinished(false)
     setAnswers([])
+    setShowReview(false)
   }
 
   const pct = Math.round((score / QUESTIONS.length) * 100)
@@ -273,7 +275,7 @@ export default function QuizPage() {
           border: 1px solid rgba(255, 255, 255, 0.08);
           border-radius: 14px;
           color: #f5f5f7;
-          font-size: 15px;
+          font-size: 18px;
           font-weight: 500;
           cursor: pointer;
           text-align: left;
@@ -317,7 +319,7 @@ export default function QuizPage() {
           {/* Progress Section */}
           {!finished && (
             <div style={{ marginBottom: 28 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: '#a1a1a6', marginBottom: 8, fontWeight: 500 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 16, color: '#a1a1a6', marginBottom: 8, fontWeight: 500 }}>
                 <span>Câu {current + 1} trên {QUESTIONS.length}</span>
                 <span>Điểm số: {score}</span>
               </div>
@@ -328,52 +330,131 @@ export default function QuizPage() {
           )}
 
           {finished ? (
-            /* Finished Results Screen */
-            <div className="ap-dark-card" style={{ background: '#1c1c1e', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '24px', padding: '48px 36px', textAlign: 'center' }}>
-              <div style={{ fontSize: 64, marginBottom: 16 }}>
-                {pct >= 80 ? '🏆' : pct >= 60 ? '🎯' : pct >= 40 ? '📚' : '💪'}
-              </div>
-              <div style={{ fontSize: 72, fontWeight: 800, color: '#f5f5f7', letterSpacing: '-0.03em', lineHeight: 1 }}>{pct}%</div>
-              <div style={{ fontSize: 18, fontWeight: 600, color: '#0071e3', marginTop: 12, marginBottom: 36 }}>{grade}</div>
+            <>
+              /* Finished Results Screen */
+              <div className="ap-dark-card" style={{ background: '#1c1c1e', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '24px', padding: '48px 36px', textAlign: 'center' }}>
+                <div style={{ fontSize: 64, marginBottom: 16 }}>
+                  {pct >= 80 ? '🏆' : pct >= 60 ? '🎯' : pct >= 40 ? '📚' : '💪'}
+                </div>
+                <div style={{ fontSize: 72, fontWeight: 800, color: '#f5f5f7', letterSpacing: '-0.03em', lineHeight: 1 }}>{pct}%</div>
+                <div style={{ fontSize: 22, fontWeight: 600, color: '#0071e3', marginTop: 12, marginBottom: 36 }}>{grade}</div>
 
-              {/* Stats blocks */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 40 }}>
-                <div style={{ background: 'rgba(255,255,255,0.04)', padding: '16px', borderRadius: '12px' }}>
-                  <div style={{ fontSize: 24, fontWeight: 700, color: '#30d158' }}>{score}</div>
-                  <div style={{ fontSize: 11, color: '#6e6e73', fontWeight: 600, marginTop: 4 }}>Câu đúng</div>
+                {/* Stats blocks */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 40 }}>
+                  <div style={{ background: 'rgba(255,255,255,0.04)', padding: '16px', borderRadius: '12px' }}>
+                    <div style={{ fontSize: 24, fontWeight: 700, color: '#30d158' }}>{score}</div>
+                    <div style={{ fontSize: 14, color: '#6e6e73', fontWeight: 600, marginTop: 4 }}>Câu đúng</div>
+                  </div>
+                  <div style={{ background: 'rgba(255,255,255,0.04)', padding: '16px', borderRadius: '12px' }}>
+                    <div style={{ fontSize: 24, fontWeight: 700, color: '#ff453a' }}>{QUESTIONS.length - score}</div>
+                    <div style={{ fontSize: 14, color: '#6e6e73', fontWeight: 600, marginTop: 4 }}>Câu sai</div>
+                  </div>
+                  <div style={{ background: 'rgba(255,255,255,0.04)', padding: '16px', borderRadius: '12px' }}>
+                    <div style={{ fontSize: 24, fontWeight: 700, color: '#a1a1a6' }}>{QUESTIONS.length}</div>
+                    <div style={{ fontSize: 14, color: '#6e6e73', fontWeight: 600, marginTop: 4 }}>Tổng câu</div>
+                  </div>
                 </div>
-                <div style={{ background: 'rgba(255,255,255,0.04)', padding: '16px', borderRadius: '12px' }}>
-                  <div style={{ fontSize: 24, fontWeight: 700, color: '#ff453a' }}>{QUESTIONS.length - score}</div>
-                  <div style={{ fontSize: 11, color: '#6e6e73', fontWeight: 600, marginTop: 4 }}>Câu sai</div>
-                </div>
-                <div style={{ background: 'rgba(255,255,255,0.04)', padding: '16px', borderRadius: '12px' }}>
-                  <div style={{ fontSize: 24, fontWeight: 700, color: '#a1a1a6' }}>{QUESTIONS.length}</div>
-                  <div style={{ fontSize: 11, color: '#6e6e73', fontWeight: 600, marginTop: 4 }}>Tổng câu</div>
+
+                {/* Action Buttons */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  <button className="ap-btn-primary" style={{ width: '100%', justifyContent: 'center' }} onClick={handleReset}>
+                    🔄 Làm lại Quiz
+                  </button>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                    <Link to="/" className="ap-btn-ghost" style={{ justifyContent: 'center' }}>
+                      📖 Về Lý thuyết
+                    </Link>
+                    <Link to="/apple" className="ap-btn-ghost" style={{ justifyContent: 'center' }}>
+                      🍎 Về Case Study
+                    </Link>
+                  </div>
+                  <button className="ap-btn-ghost" style={{ width: '100%', justifyContent: 'center', borderColor: 'rgba(255,255,255,0.1)', color: '#a1a1a6', marginTop: 4 }} onClick={() => setShowReview(!showReview)}>
+                    {showReview ? '🔼 Ẩn chi tiết đáp án' : '👁️ Xem chi tiết đáp án'}
+                  </button>
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                <button className="ap-btn-primary" style={{ width: '100%', justifyContent: 'center' }} onClick={handleReset}>
-                  🔄 Làm lại Quiz
-                </button>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-                  <Link to="/" className="ap-btn-ghost" style={{ justifyContent: 'center' }}>
-                    📖 Về Lý thuyết
-                  </Link>
-                  <Link to="/apple" className="ap-btn-ghost" style={{ justifyContent: 'center' }}>
-                    🍎 Về Case Study
-                  </Link>
+              {/* Answer Review Section */}
+              {showReview && (
+                <div className="ap-fade ap-visible" style={{ marginTop: 24, textAlign: 'left' }}>
+                  <h3 style={{ fontSize: '22px', fontWeight: 700, color: '#f5f5f7', marginBottom: 20 }}>
+                    Chi tiết bài làm:
+                  </h3>
+                  {QUESTIONS.map((question, idx) => {
+                    const userAns = answers[idx]; // { correct, selected }
+                    const isUserCorrect = userAns?.correct;
+                    const userSelectedOpt = question.opts[userAns?.selected];
+                    const correctOpt = question.opts[question.ans];
+
+                    return (
+                      <div key={idx} style={{
+                        background: '#1c1c1e',
+                        border: '1px solid rgba(255,255,255,0.08)',
+                        borderRadius: '16px',
+                        padding: '24px',
+                        marginBottom: 16
+                      }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, marginBottom: 12 }}>
+                          <span style={{ fontSize: '16px', fontWeight: 700, color: '#0071e3' }}>
+                            CÂU {idx + 1}
+                          </span>
+                          <span style={{
+                            fontSize: '17px',
+                            fontWeight: 700,
+                            color: isUserCorrect ? '#30d158' : '#ff453a',
+                            background: isUserCorrect ? 'rgba(48,209,88,0.1)' : 'rgba(255,69,58,0.1)',
+                            padding: '4px 10px',
+                            borderRadius: '980px'
+                          }}>
+                            {isUserCorrect ? '✓ ĐÚNG' : '✕ SAI'}
+                          </span>
+                        </div>
+                        <h4 style={{ fontSize: '19px', fontWeight: 600, color: '#f5f5f7', marginBottom: 16, lineHeight: 1.4 }}>
+                          {question.q}
+                        </h4>
+                        
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, fontSize: '16px', color: '#a1a1a6', marginBottom: 16 }}>
+                          <div>
+                            <span style={{ color: '#6e6e73' }}>Bạn chọn: </span>
+                            <span style={{ color: isUserCorrect ? '#30d158' : '#ff453a', fontWeight: 500 }}>
+                              {userSelectedOpt || 'Không trả lời'}
+                            </span>
+                          </div>
+                          {!isUserCorrect && (
+                            <div>
+                              <span style={{ color: '#6e6e73' }}>Đáp án đúng: </span>
+                              <span style={{ color: '#30d158', fontWeight: 500 }}>
+                                {correctOpt}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+
+                        <div style={{
+                          background: 'rgba(255,255,255,0.02)',
+                          border: '1px solid rgba(255,255,255,0.04)',
+                          borderRadius: '10px',
+                          padding: '12px 16px',
+                          fontSize: '16px',
+                          lineHeight: 1.5,
+                          color: '#8e8e93'
+                        }}>
+                          <strong style={{ color: '#a1a1a6', display: 'block', marginBottom: 4 }}>Giải thích:</strong>
+                          {question.explain}
+                        </div>
+                      </div>
+                    )
+                  })}
                 </div>
-              </div>
-            </div>
+              )}
+            </>
           ) : (
             /* Question Screen */
             <div className="ap-dark-card" style={{ background: '#1c1c1e', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '24px', padding: '40px 36px', textAlign: 'left' }}>
               <div style={{ fontSize: 11, fontWeight: 700, color: '#0071e3', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 12 }}>
                 CÂU HỎI {current + 1} TRÊN {QUESTIONS.length}
               </div>
-              <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#f5f5f7', lineHeight: 1.4, marginBottom: 28 }}>
+              <h2 style={{ fontSize: '24px', fontWeight: 700, color: '#f5f5f7', lineHeight: 1.4, marginBottom: 28 }}>
                 {q.q}
               </h2>
 
@@ -381,7 +462,7 @@ export default function QuizPage() {
               <div style={{ marginBottom: 24 }}>
                 {q.opts.map((opt, i) => {
                   let buttonBg = 'rgba(255, 255, 255, 0.04)'
-                  let buttonBorder = '1px solid rgba(255, 255, 255, 0.08)'
+                  let buttonBorderColor = 'rgba(255, 255, 255, 0.08)'
                   let buttonColor = '#f5f5f7'
                   let iconBg = 'rgba(255,255,255,0.08)'
                   let iconColor = '#a1a1a6'
@@ -390,14 +471,14 @@ export default function QuizPage() {
                   if (answered) {
                     if (i === q.ans) {
                       buttonBg = 'rgba(48,209,88,0.12)'
-                      buttonBorder = '1px solid #30d158'
+                      buttonBorderColor = '#30d158'
                       buttonColor = '#30d158'
                       iconBg = '#30d158'
                       iconColor = '#fff'
                       iconText = '✓'
                     } else if (selected === i) {
                       buttonBg = 'rgba(255,69,58,0.12)'
-                      buttonBorder = '1px solid #ff453a'
+                      buttonBorderColor = '#ff453a'
                       buttonColor = '#ff453a'
                       iconBg = '#ff453a'
                       iconColor = '#fff'
@@ -413,7 +494,7 @@ export default function QuizPage() {
                       className="ap-quiz-option"
                       style={{
                         background: buttonBg,
-                        borderColor: buttonBorder.split(' ')[2],
+                        borderColor: buttonBorderColor,
                         color: buttonColor,
                       }}
                       onClick={() => handleSelect(i)}
@@ -428,7 +509,7 @@ export default function QuizPage() {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        fontSize: 13,
+                        fontSize: 15,
                         fontWeight: 700,
                         marginRight: 14,
                         flexShrink: 0,
@@ -450,7 +531,7 @@ export default function QuizPage() {
                   borderRadius: '12px',
                   padding: '16px 20px',
                   marginBottom: 28,
-                  fontSize: '14px',
+                  fontSize: '17px',
                   color: '#a1a1a6',
                   lineHeight: 1.6
                 }}>
@@ -464,7 +545,7 @@ export default function QuizPage() {
               {/* Navigation button at bottom */}
               {answered && (
                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                  <button className="ap-btn-primary" onClick={handleNext} style={{ padding: '12px 24px', fontSize: 14 }}>
+                  <button className="ap-btn-primary" onClick={handleNext} style={{ padding: '12px 24px', fontSize: 17 }}>
                     {current + 1 >= QUESTIONS.length ? '📊 Xem kết quả' : 'Câu tiếp theo →'}
                   </button>
                 </div>
