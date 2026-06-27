@@ -2,6 +2,12 @@ import { useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import monopolyPowerImg from '../assets/monopoly_power.png'
 import stateCapitalismImg from '../assets/state_capitalism.png'
+import industrialMonopolyRiseImg from '../assets/industrial_monopoly_rise.png'
+import monopolyPriceSqueezeImg from '../assets/monopoly_price_squeeze.png'
+import monopolyDualImpactImg from '../assets/monopoly_dual_impact.png'
+import monopolyClashImg from '../assets/monopoly_clash.png'
+import financialCapitalOligarchyImg from '../assets/financial_capital_oligarchy.png'
+import stateMonopolyIntegrationImg from '../assets/state_monopoly_integration.png'
 
 const TABS = [
   { id: 'overview', label: 'Tổng quan Sơ đồ' },
@@ -219,8 +225,11 @@ export default function TheoryPage() {
             ))}
           </div>
           <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            <Link to="/apple" className="ap-nav-cta" style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.2)', color: '#f5f5f7' }}>
-              🍎 Case Study
+            <Link to="/apple" className="ap-nav-cta" style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.2)', color: '#f5f5f7', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <svg viewBox="0 0 170 170" width="16" height="16" fill="currentColor">
+                <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.34.13-9.13-1.92-14.34-6.15-3.42-2.69-7.25-7.33-11.5-13.91-4.73-6.53-8.62-14.15-11.67-22.88-3.05-8.73-4.58-17.58-4.58-26.54 0-13.06 3.47-23.86 10.42-32.4 6.95-8.54 15.54-12.85 25.75-12.94 4.87 0 9.87 1.25 15 3.75 5.12 2.5 8.95 3.75 11.5 3.75 2.1 0 5.86-1.18 11.25-3.56 5.38-2.37 10.46-3.5 15.25-3.4 11.97.46 21.6 4.96 28.88 13.51-10.99 6.67-16.38 15.61-16.19 26.85.2 9.07 3.52 16.71 9.94 22.91 6.42 6.21 14.14 9.69 23.16 10.44-2.12 6.54-4.8 13.12-8.03 19.74zM119.5 13.96c0 6.67-2.4 12.98-7.21 17.94-4.81 4.96-10.82 7.69-18.04 8.19.13-6.54 2.5-12.82 7.11-17.84 4.61-5.02 10.74-7.85 18.13-8.49 0 .07 0 .14 0 .2z"/>
+              </svg>
+              Case Study
             </Link>
             <Link to="/quiz" className="ap-nav-cta">Quiz →</Link>
           </div>
@@ -416,7 +425,7 @@ export default function TheoryPage() {
           {activeTab === 'khai-niem' && (
             <div>
               <p className="ap-eyebrow">Phần I</p>
-              <h2 className="ap-heading">Khái niệm <span className="ap-grad">Độc quyền.</span></h2>
+              <h2 className="ap-heading">Khái niệm <span className="ap-grad">Độc quyền</span></h2>
               
               <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 32, alignItems: 'center', textAlign: 'left', margin: '40px 0' }}>
                 <div>
@@ -438,13 +447,40 @@ export default function TheoryPage() {
               {/* Example grid */}
               <div className="ap-theory-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', marginTop: 40 }}>
                 {[
-                  { icon: '🍎', label: 'APPLE', theory: 'Hệ sinh thái iOS khép kín', apple: 'Kiểm soát chặt chẽ App Store và các dịch vụ đi kèm để giữ chân người dùng và thu lợi nhuận cao.' },
-                  { icon: '🔍', label: 'GOOGLE', theory: 'Thống trị tìm kiếm toàn cầu', apple: 'Nắm giữ hơn 90% thị phần công cụ tìm kiếm, định hình cách tiếp cận thông tin trực tuyến.' },
-                  { icon: '🪟', label: 'MICROSOFT', theory: 'Độc quyền hệ điều hành PC', apple: 'Windows chiếm lĩnh phần lớn máy tính cá nhân trên thế giới trong nhiều thập kỷ.' },
-                  { icon: '📱', label: 'SAMSUNG', theory: 'Dẫn đầu chip & màn hình', apple: 'Kiểm soát chuỗi cung ứng linh kiện then chốt, tạo lợi thế lớn trước các đối thủ cạnh tranh.' }
+                  { icon: '', label: 'APPLE', theory: 'Hệ sinh thái iOS khép kín', apple: 'Kiểm soát chặt chẽ App Store và các dịch vụ đi kèm để giữ chân người dùng và thu lợi nhuận cao.' },
+                  { icon: '', label: 'GOOGLE', theory: 'Thống trị tìm kiếm toàn cầu', apple: 'Nắm giữ hơn 90% thị phần công cụ tìm kiếm, định hình cách tiếp cận thông tin trực tuyến.' },
+                  { icon: '', label: 'MICROSOFT', theory: 'Độc quyền hệ điều hành PC', apple: 'Windows chiếm lĩnh phần lớn máy tính cá nhân trên thế giới trong nhiều thập kỷ.' },
+                  { icon: '', label: 'SAMSUNG', theory: 'Dẫn đầu chip & màn hình', apple: 'Kiểm soát chuỗi cung ứng linh kiện then chốt, tạo lợi thế lớn trước các đối thủ cạnh tranh.' }
                 ].map((item, idx) => (
                   <div key={idx} className="ap-theory-card" style={{ background: '#111', border: '1px solid rgba(255,255,255,0.08)' }}>
-                    <span className="ap-theory-icon">{item.icon}</span>
+                    <span className="ap-theory-icon" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', height: 32 }}>
+                      {item.label === 'APPLE' ? (
+                        <svg viewBox="0 0 170 170" width="22" height="22" fill="#fff">
+                          <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.34.13-9.13-1.92-14.34-6.15-3.42-2.69-7.25-7.33-11.5-13.91-4.73-6.53-8.62-14.15-11.67-22.88-3.05-8.73-4.58-17.58-4.58-26.54 0-13.06 3.47-23.86 10.42-32.4 6.95-8.54 15.54-12.85 25.75-12.94 4.87 0 9.87 1.25 15 3.75 5.12 2.5 8.95 3.75 11.5 3.75 2.1 0 5.86-1.18 11.25-3.56 5.38-2.37 10.46-3.5 15.25-3.4 11.97.46 21.6 4.96 28.88 13.51-10.99 6.67-16.38 15.61-16.19 26.85.2 9.07 3.52 16.71 9.94 22.91 6.42 6.21 14.14 9.69 23.16 10.44-2.12 6.54-4.8 13.12-8.03 19.74zM119.5 13.96c0 6.67-2.4 12.98-7.21 17.94-4.81 4.96-10.82 7.69-18.04 8.19.13-6.54 2.5-12.82 7.11-17.84 4.61-5.02 10.74-7.85 18.13-8.49 0 .07 0 .14 0 .2z"/>
+                        </svg>
+                      ) : item.label === 'GOOGLE' ? (
+                        <svg viewBox="0 0 24 24" width="22" height="22">
+                          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                        </svg>
+                      ) : item.label === 'MICROSOFT' ? (
+                        <svg viewBox="0 0 23 23" width="22" height="22">
+                          <rect x="1" y="1" width="10" height="10" fill="#F25022"/>
+                          <rect x="12" y="1" width="10" height="10" fill="#7FBA00"/>
+                          <rect x="1" y="12" width="10" height="10" fill="#00A4EF"/>
+                          <rect x="12" y="12" width="10" height="10" fill="#FFB900"/>
+                        </svg>
+                      ) : item.label === 'SAMSUNG' ? (
+                        <svg viewBox="0 0 100 50" width="36" height="18" fill="#0c4da2">
+                          <ellipse cx="50" cy="25" rx="48" ry="24" transform="rotate(-10 50 25)" />
+                          <text x="50" y="31" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="14" fill="#fff" text-anchor="middle" letter-spacing="1">SAMSUNG</text>
+                        </svg>
+                      ) : (
+                        item.icon
+                      )}
+                    </span>
                     <span className="ap-theory-label">{item.label}</span>
                     <div className="ap-theory-theory">{item.theory}</div>
                     <div className="ap-theory-apple">{item.apple}</div>
@@ -460,25 +496,30 @@ export default function TheoryPage() {
           {activeTab === 'nguyen-nhan' && (
             <div>
               <p className="ap-eyebrow">Phần II</p>
-              <h2 className="ap-heading">Nguyên nhân <span style={{ color: '#0071e3' }}>hình thành.</span></h2>
+              <h2 className="ap-heading">Nguyên nhân <span style={{ color: '#0071e3' }}>hình thành</span></h2>
               <p className="ap-body" style={{ maxWidth: 640, margin: '0 auto 56px' }}>
                 Ba tác nhân cốt lõi thúc đẩy quá trình chuyển dịch tất yếu từ cạnh tranh tự do sang độc quyền.
               </p>
 
-              <div className="ap-chain" style={{ maxWidth: 800, margin: '0 auto 48px' }}>
-                {[
-                  { step: '01', title: 'Sự phát triển của Lực lượng Sản xuất', desc: 'Cuối thế kỷ XIX, các phát minh khoa học kỹ thuật mới (động cơ diesel, máy phát điện, ngành luyện kim, đường sắt...) đòi hỏi quy mô sản xuất cực lớn và nguồn vốn khổng lồ. Doanh nghiệp nhỏ không đáp ứng được phải tích tụ, sáp nhập.' },
-                  { step: '02', title: 'Do cạnh tranh khốc liệt', desc: 'Cạnh tranh tự do đẩy các doanh nghiệp vào cuộc chiến đào thải. Doanh nghiệp yếu kém bị phá sản hoặc thâu tóm, doanh nghiệp mạnh thắng cuộc ngày càng lớn mạnh và liên minh với nhau.' },
-                  { step: '03', title: 'Khủng hoảng kinh tế & Hệ thống tín dụng', desc: 'Cuộc khủng hoảng kinh tế 1873 thúc đẩy nhanh chóng sự phá sản của các xí nghiệp vừa và nhỏ. Hệ thống ngân hàng và tín dụng đóng vai trò là đòn bẩy tài chính, giúp tập trung tư bản vào tay các tập đoàn lớn.' }
-                ].map((item, idx) => (
-                  <div key={idx} className="ap-dark-card" style={{ background: '#111', border: '1px solid rgba(255,255,255,0.06)', display: 'flex', gap: 24, padding: 28, marginBottom: 16 }}>
-                    <div style={{ fontSize: 32, fontWeight: 800, color: '#0071e3', opacity: 0.8, fontFamily: 'monospace' }}>{item.step}</div>
-                    <div style={{ textAlign: 'left' }}>
-                      <h3 style={{ fontSize: 21, fontWeight: 700, color: '#f5f5f7', marginBottom: 8 }}>{item.title}</h3>
-                      <p style={{ fontSize: 20, color: '#a1a1a6', lineHeight: 1.6 }}>{item.desc}</p>
+              <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 32, alignItems: 'center', margin: '40px 0' }}>
+                <div className="ap-chain">
+                  {[
+                    { step: '01', title: 'Sự phát triển của Lực lượng Sản xuất', desc: 'Cuối thế kỷ XIX, các phát minh khoa học kỹ thuật mới (động cơ diesel, máy phát điện, ngành luyện kim, đường sắt...) đòi hỏi quy mô sản xuất cực lớn và nguồn vốn khổng lồ. Doanh nghiệp nhỏ không đáp ứng được phải tích tụ, sáp nhập.' },
+                    { step: '02', title: 'Do cạnh tranh khốc liệt', desc: 'Cạnh tranh tự do đẩy các doanh nghiệp vào cuộc chiến đào thải. Doanh nghiệp yếu kém bị phá sản hoặc thâu tóm, doanh nghiệp mạnh thắng cuộc ngày càng lớn mạnh và liên minh với nhau.' },
+                    { step: '03', title: 'Khủng hoảng kinh tế & Hệ thống tín dụng', desc: 'Cuộc khủng hoảng kinh tế 1873 thúc đẩy nhanh chóng sự phá sản của các xí nghiệp vừa và nhỏ. Hệ thống ngân hàng và tín dụng đóng vai trò là đòn bẩy tài chính, giúp tập trung tư bản vào tay các tập đoàn lớn.' }
+                  ].map((item, idx) => (
+                    <div key={idx} className="ap-dark-card" style={{ background: '#111', border: '1px solid rgba(255,255,255,0.06)', display: 'flex', gap: 24, padding: 24, marginBottom: 12 }}>
+                      <div style={{ fontSize: 28, fontWeight: 800, color: '#0071e3', opacity: 0.8, fontFamily: 'monospace' }}>{item.step}</div>
+                      <div style={{ textAlign: 'left' }}>
+                        <h3 style={{ fontSize: 18, fontWeight: 700, color: '#f5f5f7', marginBottom: 6 }}>{item.title}</h3>
+                        <p style={{ fontSize: 16, color: '#a1a1a6', lineHeight: 1.5 }}>{item.desc}</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
+                <div style={{ position: 'relative', borderRadius: 18, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)' }}>
+                  <img src={industrialMonopolyRiseImg} alt="Industrial Monopoly Rise" style={{ width: '100%', display: 'block' }} />
+                </div>
               </div>
 
               <blockquote className="ap-quote">
@@ -494,7 +535,7 @@ export default function TheoryPage() {
           {activeTab === 'gia-ca' && (
             <div>
               <p className="ap-eyebrow">Phần III</p>
-              <h2 className="ap-heading">Giá cả & <span className="ap-grad">Lợi nhuận.</span></h2>
+              <h2 className="ap-heading">Giá cả & <span className="ap-grad">Lợi nhuận</span></h2>
               <p className="ap-body" style={{ maxWidth: 640, margin: '0 auto 56px' }}>
                 Cách thức các tổ chức độc quyền chi phối thị trường để tối đa hóa giá trị thặng dư.
               </p>
@@ -521,11 +562,18 @@ export default function TheoryPage() {
                 </div>
               </div>
 
-              <div className="ap-verdict" style={{ marginTop: 24 }}>
-                <span className="ap-verdict-icon">💡</span>
-                <p style={{ fontSize: '17px', color: '#a1a1a6', lineHeight: '1.7', textAlign: 'left' }}>
-                  <strong style={{ color: '#f5f5f7' }}>Nguồn gốc thực chất của Lợi nhuận độc quyền cao:</strong> Vẫn là giá trị thặng dư do người lao động tạo ra ở các xí nghiệp độc quyền, cộng với một phần giá trị thặng dư của các doanh nghiệp ngoài độc quyền và thu nhập của người sản xuất nhỏ, người tiêu dùng thông qua trao đổi không ngang giá.
-                </p>
+              <div style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: 32, alignItems: 'center', marginTop: 32 }}>
+                <div className="ap-verdict" style={{ margin: 0, height: '100%', display: 'flex', alignItems: 'center' }}>
+                  <div>
+                    <span className="ap-verdict-icon" style={{ fontSize: 28, display: 'block', marginBottom: 12 }}>💡</span>
+                    <p style={{ fontSize: '17px', color: '#a1a1a6', lineHeight: '1.7', textAlign: 'left', margin: 0 }}>
+                      <strong style={{ color: '#f5f5f7' }}>Nguồn gốc thực chất của Lợi nhuận độc quyền cao:</strong> Vẫn là giá trị thặng dư do người lao động tạo ra ở các xí nghiệp độc quyền, cộng với một phần giá trị thặng dư của các doanh nghiệp ngoài độc quyền và thu nhập của người sản xuất nhỏ, người tiêu dùng thông qua trao đổi không ngang giá.
+                    </p>
+                  </div>
+                </div>
+                <div style={{ position: 'relative', borderRadius: 18, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)' }}>
+                  <img src={monopolyPriceSqueezeImg} alt="Monopoly Price Squeeze" style={{ width: '100%', display: 'block' }} />
+                </div>
               </div>
             </div>
           )}
@@ -536,7 +584,7 @@ export default function TheoryPage() {
           {activeTab === 'dq-nha-nuoc' && (
             <div>
               <p className="ap-eyebrow">Phần IV</p>
-              <h2 className="ap-heading">Độc quyền <span style={{ color: '#ffd60a' }}>Nhà nước.</span></h2>
+              <h2 className="ap-heading">Độc quyền <span style={{ color: '#ffd60a' }}>Nhà nước</span></h2>
               
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: 32, alignItems: 'center', textAlign: 'left', margin: '40px 0' }}>
                 <div style={{ position: 'relative', borderRadius: 18, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)' }}>
@@ -611,7 +659,7 @@ export default function TheoryPage() {
           {activeTab === 'tac-dong' && (
             <div>
               <p className="ap-eyebrow">Phần V</p>
-              <h2 className="ap-heading">Tác động của <span className="ap-grad">Độc quyền.</span></h2>
+              <h2 className="ap-heading">Tác động của <span className="ap-grad">Độc quyền</span></h2>
               <p className="ap-body" style={{ maxWidth: 640, margin: '0 auto 64px' }}>
                 Hai mặt đối lập song hành của độc quyền đối với nền kinh tế xã hội.
               </p>
@@ -655,6 +703,12 @@ export default function TheoryPage() {
                   </ul>
                 </div>
               </div>
+
+              <div style={{ display: 'flex', justifyContent: 'center', marginTop: 40 }}>
+                <div style={{ maxWidth: '640px', width: '100%', borderRadius: 18, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)' }}>
+                  <img src={monopolyDualImpactImg} alt="Monopoly Dual Impact" style={{ width: '100%', display: 'block' }} />
+                </div>
+              </div>
             </div>
           )}
 
@@ -664,15 +718,20 @@ export default function TheoryPage() {
           {activeTab === 'canh-tranh' && (
             <div>
               <p className="ap-eyebrow">Phần VI</p>
-              <h2 className="ap-heading">Quan hệ <span style={{ color: '#0a84ff' }}>Cạnh tranh & Độc quyền.</span></h2>
+              <h2 className="ap-heading">Quan hệ <span style={{ color: '#0a84ff' }}>Cạnh tranh & Độc quyền</span></h2>
               <p className="ap-body" style={{ maxWidth: 640, margin: '0 auto 40px' }}>
                 Độc quyền không tiêu diệt cạnh tranh tự do mà cùng song tồn và tạo ra các hình thức cạnh tranh gay gắt hơn.
               </p>
 
-              <blockquote className="ap-quote" style={{ marginBottom: 48, borderLeftColor: '#0a84ff', background: 'rgba(10,132,255,0.04)' }}>
-                <p>"Độc quyền sinh ra từ cạnh tranh tự do, độc quyền không tiêu diệt cạnh tranh, mà tồn tại bên trên và bên cạnh nó, từ đó sinh ra những mâu thuẫn và xung đột cực kỳ gay gắt và sâu sắc."</p>
-                <cite>— V.I. Lênin</cite>
-              </blockquote>
+              <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 32, alignItems: 'center', marginBottom: 48 }}>
+                <blockquote className="ap-quote" style={{ margin: 0, width: '100%', borderLeftColor: '#0a84ff', background: 'rgba(10,132,255,0.04)' }}>
+                  <p style={{ fontSize: 20 }}>"Độc quyền sinh ra từ cạnh tranh tự do, độc quyền không tiêu diệt cạnh tranh, mà tồn tại bên trên và bên cạnh nó, từ đó sinh ra những mâu thuẫn và xung đột cực kỳ gay gắt và sâu sắc."</p>
+                  <cite style={{ color: '#0a84ff' }}>— V.I. Lênin</cite>
+                </blockquote>
+                <div style={{ position: 'relative', borderRadius: 18, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)' }}>
+                  <img src={monopolyClashImg} alt="Monopoly Clash" style={{ width: '100%', display: 'block' }} />
+                </div>
+              </div>
 
               {/* Grid for competition types */}
               <div className="ap-theory-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
@@ -719,7 +778,7 @@ export default function TheoryPage() {
           {activeTab === '5-diem' && (
             <div>
               <p className="ap-eyebrow">Phần VII</p>
-              <h2 className="ap-heading">5 Đặc điểm Kinh tế của <span className="ap-grad">CNTB Độc quyền.</span></h2>
+              <h2 className="ap-heading">5 Đặc điểm Kinh tế của <span className="ap-grad">CNTB Độc quyền</span></h2>
               <p className="ap-body" style={{ maxWidth: 640, margin: '0 auto 40px' }}>
                 Lý luận kinh tế kinh điển của V.I.Lênin về chủ nghĩa tư bản độc quyền tư nhân.
               </p>
@@ -751,37 +810,42 @@ export default function TheoryPage() {
               </div>
 
               {/* Forms of Monopoly organization */}
-              <h3 style={{ fontSize: 22, fontWeight: 700, color: '#f5f5f7', marginTop: 56, marginBottom: 24, textAlign: 'left', maxWidth: 900, margin: '56px auto 24px' }}>
+              <h3 style={{ fontSize: 22, fontWeight: 700, color: '#f5f5f7', marginTop: 56, marginBottom: 24, textAlign: 'left', maxWidth: '1000px', margin: '56px auto 24px' }}>
                 Các hình thức tổ chức độc quyền (từ thấp đến cao):
               </h3>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: 16, maxWidth: 900, margin: '0 auto' }}>
-                {[
-                  { name: 'Cartel (Các-ten)', level: 1, desc: 'Các doanh nghiệp thỏa thuận về giá cả, thị trường, sản lượng nhưng độc lập hoàn toàn về cả sản xuất và lưu thông.' },
-                  { name: 'Syndicate (Xanh-đi-ca)', level: 2, desc: 'Các doanh nghiệp giữ tính độc lập sản xuất, nhưng khâu lưu thông (mua bán nguyên vật liệu, bán sản phẩm) do ban quản trị chung quản trị.' },
-                  { name: 'Trust (Tô-rớt)', level: 3, desc: 'Doanh nghiệp mất hoàn toàn tính độc lập sản xuất và lưu thông, sáp nhập và nhận cổ phần tương ứng chịu sự quản trị thống nhất.' },
-                  { name: 'Consortium (Công-xoóc-xi-om)', level: 4, desc: 'Mức độ cao nhất. Các công ty đa ngành, ngân hàng hợp nhất dưới quyền chi phối tài chính tối cao của một nhóm tài phiệt đầu sỏ.' }
-                ].map((item, idx) => (
-                  <div key={idx} className="ap-dark-card" style={{ background: '#111', border: '1px solid rgba(255,255,255,0.06)', padding: 24, textAlign: 'left' }}>
-                    <div style={{ fontSize: 21, fontWeight: 700, color: '#f5f5f7', marginBottom: 8 }}>{item.name}</div>
-                    <p style={{ fontSize: 19, color: '#a1a1a6', lineHeight: 1.6, marginBottom: 16 }}>{item.desc}</p>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <span style={{ fontSize: 16, color: '#6e6e73' }}>Mức độ liên kết:</span>
-                      <div style={{ display: 'flex', gap: 4 }}>
-                        {[1, 2, 3, 4].map(dot => (
-                          <div
-                            key={dot}
-                            style={{
-                              width: 8,
-                              height: 8,
-                              borderRadius: '50%',
-                              background: dot <= item.level ? '#30d158' : 'rgba(255,255,255,0.1)'
-                            }}
-                          />
-                        ))}
+              <div style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: 32, alignItems: 'center', maxWidth: '1000px', margin: '0 auto' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 16 }}>
+                  {[
+                    { name: 'Cartel (Các-ten)', level: 1, desc: 'Các doanh nghiệp thỏa thuận về giá cả, thị trường, sản lượng nhưng độc lập hoàn toàn về cả sản xuất và lưu thông.' },
+                    { name: 'Syndicate (Xanh-đi-ca)', level: 2, desc: 'Các doanh nghiệp giữ tính độc lập sản xuất, nhưng khâu lưu thông (mua bán nguyên vật liệu, bán sản phẩm) do ban quản trị chung quản trị.' },
+                    { name: 'Trust (Tô-rớt)', level: 3, desc: 'Doanh nghiệp mất hoàn toàn tính độc lập sản xuất và lưu thông, sáp nhập và nhận cổ phần tương ứng chịu sự quản trị thống nhất.' },
+                    { name: 'Consortium (Công-xoóc-xi-om)', level: 4, desc: 'Mức độ cao nhất. Các công ty đa ngành, ngân hàng hợp nhất dưới quyền chi phối tài chính tối cao của một nhóm tài phiệt đầu sỏ.' }
+                  ].map((item, idx) => (
+                    <div key={idx} className="ap-dark-card" style={{ background: '#111', border: '1px solid rgba(255,255,255,0.06)', padding: 20, textAlign: 'left' }}>
+                      <div style={{ fontSize: 19, fontWeight: 700, color: '#f5f5f7', marginBottom: 6 }}>{item.name}</div>
+                      <p style={{ fontSize: 16, color: '#a1a1a6', lineHeight: 1.5, marginBottom: 12 }}>{item.desc}</p>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <span style={{ fontSize: 14, color: '#6e6e73' }}>Mức độ liên kết:</span>
+                        <div style={{ display: 'flex', gap: 4 }}>
+                          {[1, 2, 3, 4].map(dot => (
+                            <div
+                              key={dot}
+                              style={{
+                                width: 8,
+                                height: 8,
+                                borderRadius: '50%',
+                                background: dot <= item.level ? '#30d158' : 'rgba(255,255,255,0.1)'
+                              }}
+                            />
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
+                <div style={{ position: 'relative', borderRadius: 18, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)' }}>
+                  <img src={financialCapitalOligarchyImg} alt="Financial Capital Oligarchy" style={{ width: '100%', display: 'block' }} />
+                </div>
               </div>
             </div>
           )}
@@ -792,36 +856,42 @@ export default function TheoryPage() {
           {activeTab === 'dq-nn-dactrung' && (
             <div>
               <p className="ap-eyebrow">Phần VIII</p>
-              <h2 className="ap-heading">Đặc điểm của <span style={{ color: '#30d158' }}>Độc quyền Nhà nước.</span></h2>
+              <h2 className="ap-heading">Đặc điểm của <span style={{ color: '#30d158' }}>Độc quyền Nhà nước</span></h2>
               <p className="ap-body" style={{ maxWidth: 640, margin: '0 auto 56px' }}>
                 Lý luận của Lênin về 3 đặc trưng độc lập của độc quyền nhà nước trong nền kinh tế thị trường tư bản chủ nghĩa.
               </p>
 
-              <div className="ap-chain" style={{ maxWidth: 860, margin: '0 auto' }}>
-                {[
-                  { num: '1', title: 'Sự kết hợp nhân sự giữa Nhà nước và Tổ chức Độc quyền', desc: 'Có sự luân chuyển nhân sự liên tục: quan chức nhà nước chuyển sang làm giám đốc các tập đoàn, ngân hàng tư nhân và ngược lại. Các hiệp hội tư bản đóng vai trò là "chính phủ đằng sau chính phủ".' },
-                  { num: '2', title: 'Sự hình thành và phát triển của Sở hữu Nhà nước', desc: 'Nhà nước tích lũy vốn đầu tư xây dựng các công ty công ích, hạ tầng cơ sở cốt lõi, hoặc quốc hữu hóa các doanh nghiệp tư nhân. Nhà nước mở rộng thị trường thông qua các gói thầu mua sắm công lớn.' },
-                  { num: '3', title: 'Độc quyền Nhà nước là công cụ điều tiết kinh tế vĩ mô', desc: 'Sử dụng hệ thống chính sách tài khóa, tiền tệ, hành pháp để hỗ trợ các tập đoàn tư nhân. Sự dung hợp của 3 cơ chế điều tiết: thị trường + độc quyền tư nhân + điều tiết vĩ mô của nhà nước.' }
-                ].map((item, idx) => (
-                  <div key={idx} className="ap-dark-card" style={{ background: '#111', border: '1px solid rgba(255,255,255,0.06)', display: 'flex', gap: 24, padding: 28, marginBottom: 16 }}>
-                    <div style={{
-                      width: 36,
-                      height: 36,
-                      borderRadius: '50%',
-                      background: 'rgba(48,209,88,0.1)',
-                      color: '#30d158',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontWeight: 700,
-                      flexShrink: 0
-                    }}>{item.num}</div>
-                    <div style={{ textAlign: 'left' }}>
-                      <h3 style={{ fontSize: 21, fontWeight: 700, color: '#f5f5f7', marginBottom: 8 }}>{item.title}</h3>
-                      <p style={{ fontSize: 19, color: '#a1a1a6', lineHeight: 1.6 }}>{item.desc}</p>
+              <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 32, alignItems: 'center', maxWidth: '1000px', margin: '0 auto' }}>
+                <div className="ap-chain">
+                  {[
+                    { num: '1', title: 'Sự kết hợp nhân sự giữa Nhà nước và Tổ chức Độc quyền', desc: 'Có sự luân chuyển nhân sự liên tục: quan chức nhà nước chuyển sang làm giám đốc các tập đoàn, ngân hàng tư nhân và ngược lại. Các hiệp hội tư bản đóng vai trò là "chính phủ đằng sau chính phủ".' },
+                    { num: '2', title: 'Sự hình thành và phát triển của Sở hữu Nhà nước', desc: 'Nhà nước tích lũy vốn đầu tư xây dựng các công ty công ích, hạ tầng cơ sở cốt lõi, hoặc quốc hữu hóa các doanh nghiệp tư nhân. Nhà nước mở rộng thị trường thông qua các gói thầu mua sắm công lớn.' },
+                    { num: '3', title: 'Độc quyền Nhà nước là công cụ điều tiết kinh tế vĩ mô', desc: 'Sử dụng hệ thống chính sách tài khóa, tiền tệ, hành pháp để hỗ trợ các tập đoàn tư nhân. Sự dung hợp của 3 cơ chế điều tiết: thị trường + độc quyền tư nhân + điều tiết vĩ mô của nhà nước.' }
+                  ].map((item, idx) => (
+                    <div key={idx} className="ap-dark-card" style={{ background: '#111', border: '1px solid rgba(255,255,255,0.06)', display: 'flex', gap: 20, padding: 24, marginBottom: 12 }}>
+                      <div style={{
+                        width: 32,
+                        height: 32,
+                        borderRadius: '50%',
+                        background: 'rgba(48,209,88,0.1)',
+                        color: '#30d158',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontWeight: 700,
+                        flexShrink: 0,
+                        fontSize: 15
+                      }}>{item.num}</div>
+                      <div style={{ textAlign: 'left' }}>
+                        <h3 style={{ fontSize: 18, fontWeight: 700, color: '#f5f5f7', marginBottom: 6 }}>{item.title}</h3>
+                        <p style={{ fontSize: 16, color: '#a1a1a6', lineHeight: 1.5 }}>{item.desc}</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
+                <div style={{ position: 'relative', borderRadius: 18, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)' }}>
+                  <img src={stateMonopolyIntegrationImg} alt="State Monopoly Integration" style={{ width: '100%', display: 'block' }} />
+                </div>
               </div>
             </div>
           )}
@@ -847,8 +917,11 @@ export default function TheoryPage() {
                 {nextTab.label.split(': ').pop()} →
               </button>
             ) : (
-              <Link to="/apple" className="ap-btn-primary" style={{ padding: '12px 24px', fontSize: 19 }}>
-                🍎 Case Study Apple →
+              <Link to="/apple" className="ap-btn-primary" style={{ padding: '12px 24px', fontSize: 19, display: 'flex', alignItems: 'center', gap: 8 }}>
+                <svg viewBox="0 0 170 170" width="18" height="18" fill="currentColor">
+                  <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.34.13-9.13-1.92-14.34-6.15-3.42-2.69-7.25-7.33-11.5-13.91-4.73-6.53-8.62-14.15-11.67-22.88-3.05-8.73-4.58-17.58-4.58-26.54 0-13.06 3.47-23.86 10.42-32.4 6.95-8.54 15.54-12.85 25.75-12.94 4.87 0 9.87 1.25 15 3.75 5.12 2.5 8.95 3.75 11.5 3.75 2.1 0 5.86-1.18 11.25-3.56 5.38-2.37 10.46-3.5 15.25-3.4 11.97.46 21.6 4.96 28.88 13.51-10.99 6.67-16.38 15.61-16.19 26.85.2 9.07 3.52 16.71 9.94 22.91 6.42 6.21 14.14 9.69 23.16 10.44-2.12 6.54-4.8 13.12-8.03 19.74zM119.5 13.96c0 6.67-2.4 12.98-7.21 17.94-4.81 4.96-10.82 7.69-18.04 8.19.13-6.54 2.5-12.82 7.11-17.84 4.61-5.02 10.74-7.85 18.13-8.49 0 .07 0 .14 0 .2z"/>
+                </svg>
+                Case Study Apple →
               </Link>
             )}
           </div>
