@@ -25,34 +25,6 @@ const QUESTIONS = [
     explain: 'Ba nguyên nhân chủ yếu hình thành độc quyền theo Lênin là: (1) Phát triển LLSX, (2) Cạnh tranh gay gắt, (3) Khủng hoảng kinh tế và hệ thống tín dụng. Chính phủ bắt buộc sáp nhập không phải nguyên nhân tự nhiên.',
   },
   {
-    q: 'Câu nói của Lênin: "Tự do cạnh tranh đẻ ra..." được hoàn thành đúng nhất là?',
-    opts: [
-      '...sự công bằng trong phân phối',
-      '...tập trung sản xuất và sự tập trung sản xuất khi phát triển đến mức độ nhất định lại dẫn tới độc quyền',
-      '...sự phá sản của tất cả doanh nghiệp',
-      '...độc quyền nhà nước ngay lập tức',
-    ],
-    ans: 1,
-    explain: 'Đây là câu trích dẫn nổi tiếng của V.I.Lênin, khẳng định mối quan hệ tất yếu giữa cạnh tranh tự do → tập trung sản xuất → độc quyền.',
-  },
-  {
-    q: 'Hình thức tổ chức độc quyền nào có trình độ CAO NHẤT trong giáo trình?',
-    opts: ['Cartel', 'Syndicate', 'Trust', 'Consortium'],
-    ans: 3,
-    explain: 'Consortium (Công-xoóc-xi-om) là hình thức tổ chức độc quyền cao nhất, bao gồm nhiều công ty, ngân hàng, tập đoàn thuộc các ngành khác nhau liên kết dưới sự chi phối tài chính thống nhất.',
-  },
-  {
-    q: 'Trong Cartel, các doanh nghiệp thỏa thuận với nhau về điều gì?',
-    opts: [
-      'Sáp nhập hoàn toàn thành một doanh nghiệp duy nhất',
-      'Giá bán, sản lượng, thị trường — nhưng vẫn độc lập về sản xuất và lưu thông',
-      'Thống nhất khâu lưu thông nhưng độc lập sản xuất',
-      'Chuyển giao toàn bộ quyền quản lý cho ban quản trị chung',
-    ],
-    ans: 1,
-    explain: 'Cartel là liên minh các xí nghiệp ký hiệp nghị về giá cả, sản lượng, thị trường, kỳ hạn thanh toán — nhưng vẫn độc lập về cả sản xuất lẫn lưu thông hàng hóa.',
-  },
-  {
     q: '"Tư bản tài chính" là kết quả của sự hợp nhất giữa?',
     opts: [
       'Tư bản thương nghiệp và tư bản nông nghiệp',
@@ -62,28 +34,6 @@ const QUESTIONS = [
     ],
     ans: 1,
     explain: 'Theo Lênin: "Tư bản tài chính là kết quả của sự hợp nhất giữa tư bản ngân hàng của một số ít ngân hàng độc quyền lớn nhất với tư bản của những liên minh độc quyền các nhà công nghiệp."',
-  },
-  {
-    q: '"Đầu sỏ tài chính" (tài phiệt) thực hiện sự thống trị thông qua cơ chế nào?',
-    opts: [
-      'Bạo lực vũ trang',
-      'Luật pháp nhà nước',
-      '"Chế độ tham dự" — mua cổ phiếu khống chế theo chuỗi công ty mẹ-con-cháu',
-      'Quốc hữu hóa tất cả doanh nghiệp',
-    ],
-    ans: 2,
-    explain: '"Chế độ tham dự" là cơ chế nhà tài phiệt mua cổ phiếu khống chế "công ty mẹ" → công ty mẹ khống chế "công ty con" → công ty con khống chế "công ty cháu". Bằng lượng vốn nhỏ, kiểm soát lượng vốn rất lớn.',
-  },
-  {
-    q: 'Xuất khẩu tư bản khác với xuất khẩu hàng hóa ở điểm nào?',
-    opts: [
-      'Xuất khẩu tư bản là đưa vốn ra nước ngoài để kiếm lợi nhuận, không phải bán hàng',
-      'Xuất khẩu tư bản chỉ là bán máy móc thiết bị',
-      'Xuất khẩu tư bản là xuất khẩu tiền mặt',
-      'Chúng giống nhau hoàn toàn',
-    ],
-    ans: 0,
-    explain: 'Xuất khẩu tư bản là xuất khẩu giá trị ra nước ngoài (đầu tư vốn) nhằm thu giá trị thặng dư. Khác với xuất khẩu hàng hóa là bán sản phẩm đã sản xuất ra.',
   },
   {
     q: 'Độc quyền nhà nước trong CNTB hình thành nhằm mục đích chính là?',
@@ -97,125 +47,15 @@ const QUESTIONS = [
     explain: 'Theo Lênin, độc quyền nhà nước trong CNTB hình thành nhằm phục vụ lợi ích của các tổ chức độc quyền tư nhân và tiếp tục duy trì, phát triển chủ nghĩa tư bản.',
   },
   {
-    q: '"Hôm nay là bộ trưởng, ngày mai là chủ ngân hàng" — câu này của Lênin nói về đặc trưng nào của độc quyền nhà nước?',
-    opts: [
-      'Sự phát triển của sở hữu nhà nước',
-      'Sự kết hợp về nhân sự giữa nhà nước và tổ chức độc quyền',
-      'Công cụ điều tiết kinh tế',
-      'Xuất khẩu tư bản',
-    ],
-    ans: 1,
-    explain: 'Câu trích dẫn này của Lênin mô tả đặc trưng thứ nhất của độc quyền nhà nước: sự kết hợp về nhân sự — các quan chức nhà nước và lãnh đạo tổ chức độc quyền luân chuyển vị trí cho nhau.',
-  },
-  {
-    q: 'Tác động TIÊU CỰC nào của độc quyền KHÔNG được đề cập trong giáo trình?',
-    opts: [
-      'Gây thiệt hại cho người tiêu dùng qua giá cao',
-      'Kìm hãm tiến bộ kỹ thuật',
-      'Gia tăng bất bình đẳng xã hội',
-      'Làm giảm GDP của quốc gia',
-    ],
-    ans: 3,
-    explain: 'Giáo trình đề cập 3 tác động tiêu cực: (1) Gây thiệt hại người tiêu dùng, (2) Kìm hãm tiến bộ kỹ thuật, (3) Gia tăng bất bình đẳng xã hội. "Làm giảm GDP" không được đề cập.',
-  },
-  {
-    q: 'Theo Lênin, độc quyền có quan hệ như thế nào với cạnh tranh?',
-    opts: [
-      'Độc quyền thủ tiêu hoàn toàn cạnh tranh',
-      'Độc quyền và cạnh tranh không có mối quan hệ gì',
-      'Độc quyền không thủ tiêu cạnh tranh mà làm cạnh tranh gay gắt hơn',
-      'Cạnh tranh tạo ra độc quyền và độc quyền thủ tiêu cạnh tranh',
-    ],
-    ans: 2,
-    explain: 'Lênin khẳng định: Độc quyền không thủ tiêu cạnh tranh mà làm cho cạnh tranh trở nên đa dạng, gay gắt hơn. Có 3 hình thức cạnh tranh mới trong điều kiện độc quyền.',
-  },
-  {
     q: 'Apple thu phí 30% từ App Store là ví dụ của loại giá nào theo lý thuyết Lênin?',
     opts: [
       'Giá thị trường bình thường',
       'Giá cả độc quyền cao (khi bán)',
-      'Giá cả độc quyền thấp (khi mua — ép giá lập trình viên)',
+      'Giá cả độc quyền thấp (khi mua — ép giá đối tác/lập trình viên)',
       'Không thuộc loại nào trong lý thuyết',
     ],
     ans: 2,
-    explain: 'Apple dùng vị thế độc quyền trên iOS để ép lập trình viên nộp 30% — tức là "mua" dịch vụ của lập trình viên với giá thấp hơn giá trị thực. Đây là giá mua độc quyền thấp.',
-  },
-  {
-    q: 'Trong các hình thức xuất khẩu tư bản, Samsung đầu tư nhà máy tại Việt Nam là ví dụ của?',
-    opts: [
-      'Xuất khẩu hàng hóa',
-      'Đầu tư gián tiếp (FPI)',
-      'Đầu tư trực tiếp (FDI)',
-      'Viện trợ phát triển',
-    ],
-    ans: 2,
-    explain: 'Đầu tư trực tiếp (FDI) là hình thức xây dựng hoặc mua doanh nghiệp tại nước ngoài để trực tiếp kinh doanh thu lợi nhuận. Samsung xây nhà máy ở Việt Nam là FDI điển hình.',
-  },
-  {
-    q: 'Syndicate khác Cartel ở điểm gì?',
-    opts: [
-      'Syndicate mất hoàn toàn tính độc lập cả sản xuất lẫn lưu thông',
-      'Syndicate vẫn độc lập sản xuất nhưng thống nhất khâu lưu thông (mua bán do ban quản trị chung)',
-      'Syndicate là hình thức thấp hơn Cartel',
-      'Không có sự khác biệt',
-    ],
-    ans: 1,
-    explain: 'Syndicate: Vẫn độc lập về sản xuất, nhưng mất độc lập về lưu thông — mọi mua/bán do ban quản trị chung đảm nhận. Đây là mức cao hơn Cartel (Cartel còn độc lập cả sản xuất lẫn lưu thông).',
-  },
-  {
-    q: 'Nguồn gốc của lợi nhuận độc quyền cao thực chất là gì?',
-    opts: [
-      'Do nhà nước trợ cấp trực tiếp',
-      'Do may mắn trong kinh doanh',
-      'Từ giá trị thặng dư của công nhân và trao đổi không ngang giá với các nước thuộc địa, phụ thuộc',
-      'Từ lợi nhuận thương mại đơn thuần',
-    ],
-    ans: 2,
-    explain: 'Nguồn gốc lợi nhuận độc quyền vẫn là lao động không công của công nhân (giá trị thặng dư), cộng thêm từ sự chênh lệch trao đổi không ngang giá và bóc lột các nước thuộc địa, phụ thuộc.',
-  },
-  {
-    q: 'Tại sao nhà nước phải đầu tư vào các ngành như giáo dục, y tế, giao thông?',
-    opts: [
-      'Vì các ngành này có lợi nhuận cao nhất',
-      'Vì đây là ngành dễ quản lý nhất',
-      'Vì tư nhân không muốn đầu tư do vốn lớn, thu hồi chậm, ít lợi nhuận',
-      'Vì chính phủ muốn kiểm soát toàn bộ nền kinh tế',
-    ],
-    ans: 2,
-    explain: 'Đây là nguyên nhân thứ hai hình thành độc quyền nhà nước: Nhiều ngành chiến lược có vốn đầu tư lớn, thời gian thu hồi dài, lợi nhuận thấp → tư nhân không muốn đầu tư → nhà nước phải đứng ra.',
-  },
-  {
-    q: 'Trong cuộc cạnh tranh Apple vs Samsung — đây là loại cạnh tranh nào theo Lênin?',
-    opts: [
-      'Cạnh tranh trong nội bộ tổ chức độc quyền',
-      'Cạnh tranh giữa tổ chức độc quyền và doanh nghiệp ngoài độc quyền',
-      'Cạnh tranh giữa các tổ chức độc quyền với nhau',
-      'Cạnh tranh tự do đơn thuần',
-    ],
-    ans: 2,
-    explain: 'Apple và Samsung đều là các tổ chức độc quyền lớn. Cuộc cạnh tranh giữa họ là hình thức "cạnh tranh giữa các tổ chức độc quyền với nhau" — một trong 3 hình thức cạnh tranh trong điều kiện độc quyền.',
-  },
-  {
-    q: 'Đặc điểm nào của CNTB độc quyền dẫn đến chủ nghĩa thực dân và chiến tranh thế giới?',
-    opts: [
-      'Tư bản tài chính và đầu sỏ tài chính',
-      'Tập trung sản xuất ở trình độ cao',
-      'Phân chia lãnh thổ thế giới giữa các cường quốc tư bản',
-      'Xuất khẩu tư bản',
-    ],
-    ans: 2,
-    explain: 'Đặc điểm thứ 5: Phân chia lãnh thổ thế giới giữa các cường quốc tư bản. Các tập đoàn độc quyền thúc đẩy chính phủ mở rộng ảnh hưởng → chủ nghĩa thực dân → xung đột → chiến tranh thế giới.',
-  },
-  {
-    q: 'Cơ chế điều tiết kinh tế của độc quyền nhà nước là sự dung hợp của?',
-    opts: [
-      'Chỉ có kế hoạch hóa nhà nước',
-      'Thị trường + Độc quyền tư nhân + Điều tiết nhà nước',
-      'Chỉ có thị trường tự do',
-      'Chỉ có độc quyền nhà nước thuần túy',
-    ],
-    ans: 1,
-    explain: 'Cơ chế điều tiết kinh tế độc quyền nhà nước là sự dung hợp cả ba cơ chế: thị trường + độc quyền tư nhân + điều tiết của nhà nước — nhằm phát huy mặt tích cực và hạn chế tiêu cực của từng cơ chế.',
+    explain: 'Apple dùng vị thế độc quyền trên iOS để ép lập trình viên nộp 30% — tức là "mua" dịch vụ của lập trình viên với giá thấp hơn giá trị thực tế của nó (giá mua độc quyền thấp).',
   },
 ]
 

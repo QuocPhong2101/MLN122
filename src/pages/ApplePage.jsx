@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+﻿import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import appleEcosystemLockedImg from '../assets/apple_ecosystem_locked.png'
 import appleIphoneCenterImg from '../assets/apple_iphone_center.png'
@@ -14,6 +14,7 @@ import appleJourneyLockinImg from '../assets/apple_journey_lockin.png'
 import appleJourneyMonopolyImg from '../assets/apple_journey_monopoly.png'
 import appleMacbookImg from '../assets/apple_macbook.png'
 import appleCareImg from '../assets/apple_care.png'
+import appleIphone15ProMaxImg from '../assets/apple_iphone15_pro_max.png'
 
 /* ─── Apple-style nav items ─────────────────── */
 const NAV_ITEMS = [
@@ -32,6 +33,65 @@ const ECO_ITEMS = [
   { id: 'apple-pay', name: 'Apple Pay', icon: '💳', img: applePayImg, x: 80, y: 200, color: '#ff3b30', desc: 'Ví điện tử độc quyền được quyền truy cập chip thanh toán NFC trên iPhone. Apple ngăn chặn các ứng dụng ngân hàng và ví điện tử đối thủ tiếp cận hạ tầng.' },
   { id: 'imessage', name: 'iMessage & FaceTime', icon: '💬', img: appleImessageImg, x: 140, y: 96, color: '#ff9500', desc: 'Nhắn tin và gọi điện miễn phí giữa các thiết bị Apple. Sử dụng bóng tin nhắn màu xanh lá và giảm chất lượng ảnh gửi từ Android để tạo rào cản tâm lý.' },
   { id: 'airpods', name: 'AirPods', icon: '🎧', img: appleAirpodsImg, x: 260, y: 96, color: '#a855f7', desc: 'Tai nghe tự động kết nối và chuyển đổi cực nhanh giữa các thiết bị Apple cùng iCloud. Khi dùng trên Android, AirPods mất hầu hết tính năng tiện ích.' }
+]
+
+const COMPARE_DETAILS = [
+  {
+    label: 'Hệ sinh thái',
+    apple: 'Khép kín hoàn toàn (iOS)',
+    samsung: 'Mở (Android + One UI)',
+    title: 'Hệ sinh thái',
+    appleDetail: 'Hệ sinh thái iOS khép kín hoạt động như một "pháo đài độc quyền" tự nhiên. Khi mua iPhone, người dùng bị ràng buộc vào iCloud, Apple Watch, Apple Pay... tạo ra chi phí chuyển đổi (switching cost) cực kỳ cao để giữ chân họ.',
+    samsungDetail: 'Dùng hệ điều hành Android mở, tạo sự đa dạng sản phẩm nhưng khiến Samsung phụ thuộc lớn vào Google (hệ sinh thái phần mềm Android cốt lõi), khó tự tạo ra thế độc quyền khép kín hoàn toàn.'
+  },
+  {
+    label: 'App Store',
+    apple: 'Độc quyền, thu 30%',
+    samsung: 'Google Play — có thể cài ngoài',
+    title: 'Quyền kiểm soát kho ứng dụng',
+    appleDetail: 'App Store là cổng phân phối ứng dụng duy nhất trên iOS. Apple áp đặt mức phí hoa hồng 30% (Apple Tax), là biểu hiện rõ nét của việc áp đặt "giá độc quyền cao" nhờ kiểm soát cơ sở hạ tầng số.',
+    samsungDetail: 'Cho phép người dùng cài đặt ứng dụng từ nhiều nguồn khác nhau ngoài Google Play (như Galaxy Store hoặc trực tiếp từ file APK), thể hiện tính chất cạnh tranh mở hơn của Android.'
+  },
+  {
+    label: 'Định giá',
+    apple: 'Cao — ít khuyến mãi',
+    samsung: 'Đa phân khúc từ thấp đến cao',
+    title: 'Chiến lược định giá sản phẩm',
+    appleDetail: 'Áp dụng chính sách "giá độc quyền cao" cho các sản phẩm phần cứng (iPhone, MacBook) để thu lợi nhuận độc quyền khổng lồ vượt xa chi phí sản xuất thực tế.',
+    samsungDetail: 'Định giá đa phân khúc, dàn trải từ giá rẻ đến cao cấp nhằm bao phủ thị trường. Phản ánh chiến lược cạnh tranh hỗn hợp giữa cạnh tranh tự do (phân khúc thấp) và độc quyền nhóm (phân khúc cao).'
+  },
+  {
+    label: 'Chuỗi cung ứng',
+    apple: 'Ép giá nhà cung cấp mạnh',
+    samsung: 'Tự sản xuất nhiều linh kiện',
+    title: 'Sức ép chuỗi cung ứng',
+    appleDetail: 'Sử dụng quyền lực mua cực lớn (monopsony power) để áp đặt "giá mua độc quyền thấp" lên các đối tác trong chuỗi cung ứng (ép Foxconn, Samsung Display... giảm giá bán tối đa).',
+    samsungDetail: 'Sở hữu chuỗi sản xuất tự cung tự cấp cực mạnh (tự sản xuất chip, màn hình, RAM, pin), giảm sự phụ thuộc vào bên ngoài nhưng phải gánh chịu chi phí vận hành nhà máy khổng lồ.'
+  },
+  {
+    label: 'Biên lợi nhuận gộp',
+    apple: '~45–47%',
+    samsung: '~35–38%',
+    title: 'Biên lợi nhuận gộp',
+    appleDetail: 'Đạt biên lợi nhuận gộp siêu cao nhờ áp đặt thành công cả hai gọng kìm: giá bán độc quyền cao đối với người tiêu dùng và giá mua độc quyền thấp đối với nhà cung ứng và lập trình viên.',
+    samsungDetail: 'Biên lợi nhuận gộp thấp hơn do cơ cấu sản phẩm trải dài nhiều phân khúc giá rẻ có biên lợi nhuận mỏng và chi phí tự vận hành sản xuất linh kiện gốc lớn.'
+  },
+  {
+    label: 'Kiểm soát nền tảng',
+    apple: 'Kiểm soát toàn bộ iOS + App Store',
+    samsung: 'Phụ thuộc Google cho Android',
+    title: 'Kiểm soát nền tảng',
+    appleDetail: 'Nắm giữ toàn bộ quyền kiểm soát cả phần cứng lẫn phần mềm. Đây là đỉnh cao của việc tích hợp dọc để ngăn chặn đối thủ xâm nhập thị trường và bảo vệ lợi nhuận độc quyền lâu dài.',
+    samsungDetail: 'Dù mạnh về sản xuất phần cứng nhưng hệ điều hành và các dịch vụ cốt lõi vẫn dựa vào Android của Google, khiến Samsung dễ bị ảnh hưởng bởi các quyết định chiến lược của Google.'
+  },
+  {
+    label: 'Quyền lực thị trường',
+    apple: 'Rất cao ở phân khúc cao cấp',
+    samsung: 'Phân tán hơn qua nhiều phân khúc',
+    title: 'Quyền lực thị trường',
+    appleDetail: 'Dù lượng máy bán ra ít hơn Samsung, Apple thâu tóm tới hơn 85% lợi nhuận của toàn ngành smartphone toàn cầu, thể hiện quyền lực độc quyền tuyệt đối.',
+    samsungDetail: 'Có thị phần lớn nhất về số lượng máy bán ra nhưng lợi nhuận phân tán do sự cạnh tranh gay gắt từ các thương hiệu Trung Quốc ở phân khúc giá rẻ và trung cấp.'
+  }
 ]
 
 /* ─── Intersection-observer fade helper ─────── */
@@ -73,6 +133,7 @@ export default function ApplePage() {
   const pageRef = useRef(null)
   const [navScrolled, setNavScrolled] = useState(false)
   const [selectedEco, setSelectedEco] = useState(ECO_ITEMS[0])
+  const [selectedCompareIdx, setSelectedCompareIdx] = useState(null)
   const active = useActive(NAV_ITEMS.map(n => n.id))
   useFadeIn(pageRef)
 
@@ -111,6 +172,68 @@ export default function ApplePage() {
         @keyframes eco-pulse {
           to { stroke-dashoffset: -20; }
         }
+        
+        .ap-compare-wrapper {
+          width: 100%;
+          transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .ap-compare-tr {
+          cursor: pointer;
+          transition: background-color 0.2s ease;
+        }
+        .ap-compare-tr:hover {
+          background-color: rgba(0, 113, 227, 0.04) !important;
+        }
+        .ap-compare-tr--active {
+          background-color: rgba(0, 113, 227, 0.08) !important;
+        }
+        .ap-compare-tr--active td {
+          border-bottom-color: rgba(0, 113, 227, 0.2) !important;
+        }
+        .ap-explain-panel {
+          background: #fff;
+          border: 1px solid #d2d2d7;
+          border-radius: 18px;
+          padding: 28px;
+          min-height: 420px;
+          text-align: left;
+          color: #1d1d1f;
+          box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+          transition: all 0.3s ease;
+        }
+        .ap-explain-header {
+          font-size: 20px;
+          font-weight: 700;
+          color: #1d1d1f;
+          margin-bottom: 20px;
+          border-bottom: 1px solid #e5e5ea;
+          padding-bottom: 12px;
+        }
+        .ap-explain-section {
+          margin-bottom: 20px;
+        }
+        .ap-explain-title {
+          font-size: 14px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          margin-bottom: 8px;
+        }
+        .ap-explain-body {
+          font-size: 16px;
+          line-height: 1.6;
+          color: #515154;
+        }
+        @keyframes fadeInRight {
+          from {
+            opacity: 0;
+            transform: translateX(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
       `}</style>
 
       {/* Sticky top nav (Apple style) */}
@@ -123,8 +246,8 @@ export default function ApplePage() {
             Lý thuyết
           </Link>
           <span className="ap-nav-logo" style={{ display: 'flex', alignItems: 'center', color: '#f5f5f7' }}>
-            <svg viewBox="0 0 170 170" width="18" height="18" fill="currentColor">
-              <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.34.13-9.13-1.92-14.34-6.15-3.42-2.69-7.25-7.33-11.5-13.91-4.73-6.53-8.62-14.15-11.67-22.88-3.05-8.73-4.58-17.58-4.58-26.54 0-13.06 3.47-23.86 10.42-32.4 6.95-8.54 15.54-12.85 25.75-12.94 4.87 0 9.87 1.25 15 3.75 5.12 2.5 8.95 3.75 11.5 3.75 2.1 0 5.86-1.18 11.25-3.56 5.38-2.37 10.46-3.5 15.25-3.4 11.97.46 21.6 4.96 28.88 13.51-10.99 6.67-16.38 15.61-16.19 26.85.2 9.07 3.52 16.71 9.94 22.91 6.42 6.21 14.14 9.69 23.16 10.44-2.12 6.54-4.8 13.12-8.03 19.74zM119.5 13.96c0 6.67-2.4 12.98-7.21 17.94-4.81 4.96-10.82 7.69-18.04 8.19.13-6.54 2.5-12.82 7.11-17.84 4.61-5.02 10.74-7.85 18.13-8.49 0 .07 0 .14 0 .2z"/>
+            <svg viewBox="0 0 814 1000" width="18" height="18" fill="currentColor">
+              <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76.5 0-103.7 40.8-165.9 40.8s-105.6-57-155.5-127C46.7 790.7 0 663 0 541.8c0-194.4 126.4-297.5 250.8-297.5 66.1 0 121.2 43.4 162.7 43.4 39.5 0 101.1-46 176.3-46 28.5 0 130.9 2.6 198.3 99.2zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z"/>
             </svg>
           </span>
           <div className="ap-nav-links">
@@ -146,8 +269,8 @@ export default function ApplePage() {
       <section id="hero" className="ap-hero">
         <div className="ap-hero-eyebrow ap-fade">Case Study · MLN122 Chương 4</div>
         <h1 className="ap-hero-title ap-slide-up" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
-          <svg viewBox="0 0 170 170" width="64" height="64" fill="currentColor">
-            <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.34.13-9.13-1.92-14.34-6.15-3.42-2.69-7.25-7.33-11.5-13.91-4.73-6.53-8.62-14.15-11.67-22.88-3.05-8.73-4.58-17.58-4.58-26.54 0-13.06 3.47-23.86 10.42-32.4 6.95-8.54 15.54-12.85 25.75-12.94 4.87 0 9.87 1.25 15 3.75 5.12 2.5 8.95 3.75 11.5 3.75 2.1 0 5.86-1.18 11.25-3.56 5.38-2.37 10.46-3.5 15.25-3.4 11.97.46 21.6 4.96 28.88 13.51-10.99 6.67-16.38 15.61-16.19 26.85.2 9.07 3.52 16.71 9.94 22.91 6.42 6.21 14.14 9.69 23.16 10.44-2.12 6.54-4.8 13.12-8.03 19.74zM119.5 13.96c0 6.67-2.4 12.98-7.21 17.94-4.81 4.96-10.82 7.69-18.04 8.19.13-6.54 2.5-12.82 7.11-17.84 4.61-5.02 10.74-7.85 18.13-8.49 0 .07 0 .14 0 .2z"/>
+          <svg viewBox="0 0 814 1000" width="64" height="64" fill="currentColor">
+            <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76.5 0-103.7 40.8-165.9 40.8s-105.6-57-155.5-127C46.7 790.7 0 663 0 541.8c0-194.4 126.4-297.5 250.8-297.5 66.1 0 121.2 43.4 162.7 43.4 39.5 0 101.1-46 176.3-46 28.5 0 130.9 2.6 198.3 99.2zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z"/>
           </svg>
           Apple
         </h1>
@@ -177,7 +300,7 @@ export default function ApplePage() {
       {/* SECTION 1 — JOURNEY */}
       <section id="journey" className="ap-section ap-section--dark">
         <div className="ap-container">
-          <p className="ap-eyebrow ap-fade">Phân tích 01</p>
+          <p className="ap-eyebrow ap-fade">Hành trình</p>
           <h2 className="ap-heading ap-slide-up">
             Từ cạnh tranh tự do<br/>
             <span className="ap-grad">đến Độc quyền</span>
@@ -229,7 +352,7 @@ export default function ApplePage() {
       {/* SECTION 2 — GIÁ CAO */}
       <section id="price-high" className="ap-section ap-section--light">
         <div className="ap-container">
-          <p className="ap-eyebrow ap-fade" style={{ color: '#1d1d1f' }}>Phân tích 02</p>
+          <p className="ap-eyebrow ap-fade" style={{ color: '#1d1d1f' }}>Giá bán cao</p>
           <h2 className="ap-heading ap-slide-up" style={{ color: '#1d1d1f' }}>
             Giá bán <span style={{ color: '#0071e3' }}>độc quyền cao</span>
           </h2>
@@ -239,7 +362,7 @@ export default function ApplePage() {
 
           <div className="ap-product-grid ap-fade">
             {[
-              { name: 'iPhone 15 Pro Max', price: '$1,199', cost: '~$500', img: appleIphoneCenterImg, note: 'Biên lợi nhuận ~60%' },
+              { name: 'iPhone 15 Pro Max', price: '$1,199', cost: '~$500', img: appleIphone15ProMaxImg, note: 'Biên lợi nhuận ~60%' },
               { name: 'MacBook Pro M3 Max', price: '$3,999', cost: '~$700', img: appleMacbookImg, note: 'Không có thay thế trực tiếp' },
               { name: 'App Store (hoa hồng)', price: '30%', cost: '~3%', img: appleAppstoreImg, note: 'Cổng duy nhất trên iOS' },
               { name: 'Apple Care+', price: '$299/năm', cost: 'Chi phí thực tế thấp', img: appleCareImg, note: 'Bắt buộc nếu muốn bảo hành tốt' },
@@ -359,7 +482,7 @@ export default function ApplePage() {
       {/* SECTION 3 — GIÁ THẤP */}
       <section id="price-low" className="ap-section ap-section--dark">
         <div className="ap-container">
-          <p className="ap-eyebrow ap-fade">Phân tích 03</p>
+          <p className="ap-eyebrow ap-fade">Giá mua thấp</p>
           <h2 className="ap-heading ap-slide-up">
             Giá mua <span className="ap-grad">độc quyền thấp</span>
           </h2>
@@ -370,10 +493,7 @@ export default function ApplePage() {
           <div className="ap-two-col ap-fade">
             {/* Cột trái: Nhà cung cấp */}
             <div className="ap-dark-card" style={{ display: 'flex', flexDirection: 'column' }}>
-              <div style={{ borderRadius: 12, overflow: 'hidden', width: 48, height: 48, marginBottom: 16, border: '1px solid rgba(255,255,255,0.1)' }}>
-                <img src={appleIphoneCenterImg} alt="Foxconn" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-              </div>
-              <h3 className="ap-dark-card-title">Ép giá Nhà cung cấp</h3>
+              <h3 className="ap-dark-card-title" style={{ marginTop: 0 }}>Ép giá Nhà cung cấp</h3>
               <div className="ap-chain">
                 {[
                   'Apple đặt hàng hàng trăm triệu linh kiện',
@@ -392,10 +512,7 @@ export default function ApplePage() {
 
             {/* Cột phải: Lập trình viên */}
             <div className="ap-dark-card" style={{ display: 'flex', flexDirection: 'column' }}>
-              <div style={{ borderRadius: 12, overflow: 'hidden', width: 48, height: 48, marginBottom: 16, border: '1px solid rgba(255,255,255,0.1)' }}>
-                <img src={appleAppstoreImg} alt="App Store Developer" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-              </div>
-              <h3 className="ap-dark-card-title">Ép phí Lập trình viên</h3>
+              <h3 className="ap-dark-card-title" style={{ marginTop: 0 }}>Ép phí Lập trình viên</h3>
               <div className="ap-chain">
                 {[
                   'App Store — cổng DUY NHẤT để phân phối app trên iOS',
@@ -426,93 +543,176 @@ export default function ApplePage() {
       {/* SECTION 4 — SO SÁNH */}
       <section id="compare" className="ap-section ap-section--light">
         <div className="ap-container">
-          <p className="ap-eyebrow ap-fade" style={{ color: '#1d1d1f' }}>Phân tích 04</p>
+          <p className="ap-eyebrow ap-fade" style={{ color: '#1d1d1f' }}>So sánh</p>
           <h2 className="ap-heading ap-slide-up" style={{ color: '#1d1d1f' }}>
             Apple <span style={{ color: '#0071e3' }}>vs</span> Samsung
           </h2>
 
-          <table className="ap-fade" style={{
-            width: '100%',
-            maxWidth: '900px',
-            margin: '0 auto',
-            borderCollapse: 'separate',
-            borderSpacing: 0,
-            border: '1px solid #d2d2d7',
-            borderRadius: '18px',
-            overflow: 'hidden',
-            textAlign: 'left',
-            background: '#fff'
+          <div className="ap-compare-wrapper ap-fade" style={{
+            display: selectedCompareIdx !== null ? 'grid' : 'block',
+            gridTemplateColumns: selectedCompareIdx !== null ? '1.25fr 0.75fr' : 'none',
+            gap: '32px',
+            margin: '40px auto 0',
+            maxWidth: selectedCompareIdx !== null ? '1100px' : '900px',
+            transition: 'all 0.3s cubic-bezier(0.25, 1, 0.5, 1)'
           }}>
-            <thead>
-              <tr style={{ background: '#f5f5f7' }}>
-                <th style={{ padding: '16px 20px', fontSize: '17px', fontWeight: 700, color: '#6e6e73', borderBottom: '1px solid #d2d2d7' }}>Tiêu chí</th>
-                <th style={{ padding: '16px 20px', fontSize: '17px', fontWeight: 700, color: '#1d1d1f', borderBottom: '1px solid #d2d2d7', borderLeft: '1px solid #d2d2d7' }}>
-                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
-                    <svg viewBox="0 0 170 170" width="18" height="18" fill="currentColor">
-                      <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.34.13-9.13-1.92-14.34-6.15-3.42-2.69-7.25-7.33-11.5-13.91-4.73-6.53-8.62-14.15-11.67-22.88-3.05-8.73-4.58-17.58-4.58-26.54 0-13.06 3.47-23.86 10.42-32.4 6.95-8.54 15.54-12.85 25.75-12.94 4.87 0 9.87 1.25 15 3.75 5.12 2.5 8.95 3.75 11.5 3.75 2.1 0 5.86-1.18 11.25-3.56 5.38-2.37 10.46-3.5 15.25-3.4 11.97.46 21.6 4.96 28.88 13.51-10.99 6.67-16.38 15.61-16.19 26.85.2 9.07 3.52 16.71 9.94 22.91 6.42 6.21 14.14 9.69 23.16 10.44-2.12 6.54-4.8 13.12-8.03 19.74zM119.5 13.96c0 6.67-2.4 12.98-7.21 17.94-4.81 4.96-10.82 7.69-18.04 8.19.13-6.54 2.5-12.82 7.11-17.84 4.61-5.02 10.74-7.85 18.13-8.49 0 .07 0 .14 0 .2z"/>
-                    </svg>
-                    Apple
-                  </div>
-                </th>
-                <th style={{ padding: '16px 20px', fontSize: '17px', fontWeight: 700, color: '#1756a9', borderBottom: '1px solid #d2d2d7', borderLeft: '1px solid #d2d2d7' }}>
-                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
-                    <svg viewBox="0 0 100 50" width="32" height="16" fill="#0c4da2">
-                      <ellipse cx="50" cy="25" rx="48" ry="24" transform="rotate(-10 50 25)" />
-                      <text x="50" y="31" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="14" fill="#fff" text-anchor="middle" letter-spacing="1">SAMSUNG</text>
-                    </svg>
-                    Samsung
-                  </div>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                { label: 'Hệ sinh thái', apple: 'Khép kín hoàn toàn (iOS)', samsung: 'Mở (Android + One UI)' },
-                { label: 'App Store', apple: 'Độc quyền, thu 30%', samsung: 'Google Play — có thể cài ngoài' },
-                { label: 'Định giá', apple: 'Cao — ít khuyến mãi', samsung: 'Đa phân khúc từ thấp đến cao' },
-                { label: 'Chuỗi cung ứng', apple: 'Ép giá nhà cung cấp mạnh', samsung: 'Tự sản xuất nhiều linh kiện' },
-                { label: 'Biên lợi nhuận gộp', apple: '~45–47%', samsung: '~35–38%' },
-                { label: 'Kiểm soát nền tảng', apple: 'Kiểm soát toàn bộ iOS + App Store', samsung: 'Phụ thuộc Google cho Android' },
-                { label: 'Quyền lực thị trường', apple: 'Rất cao ở phân khúc cao cấp', samsung: 'Phân tán hơn qua nhiều phân khúc' }
-              ].map((row, idx) => (
-                <tr key={idx}>
-                  <td style={{
-                    padding: '16px 20px',
-                    fontSize: '18px',
-                    fontWeight: 600,
-                    color: '#1d1d1f',
-                    background: '#fafafa',
-                    borderBottom: idx === 6 ? 'none' : '1px solid #e5e5ea',
-                    width: '25%'
-                  }}>
-                    {row.label}
-                  </td>
-                  <td style={{
-                    padding: '16px 20px',
-                    fontSize: '18px',
-                    color: '#3a3a3c',
-                    lineHeight: 1.5,
-                    borderBottom: idx === 6 ? 'none' : '1px solid #e5e5ea',
-                    borderLeft: '1px solid #e5e5ea',
-                    width: '37.5%'
-                  }}>
-                    {row.apple}
-                  </td>
-                  <td style={{
-                    padding: '16px 20px',
-                    fontSize: '18px',
-                    color: '#3a3a3c',
-                    lineHeight: 1.5,
-                    borderBottom: idx === 6 ? 'none' : '1px solid #e5e5ea',
-                    borderLeft: '1px solid #e5e5ea',
-                    width: '37.5%'
-                  }}>
-                    {row.samsung}
-                  </td>
+            {/* Left table */}
+            <table style={{
+              width: '100%',
+              borderCollapse: 'separate',
+              borderSpacing: 0,
+              border: '1px solid #d2d2d7',
+              borderRadius: '18px',
+              overflow: 'hidden',
+              textAlign: 'left',
+              background: '#fff',
+              boxShadow: '0 4px 20px rgba(0,0,0,0.02)',
+              transition: 'all 0.3s ease'
+            }}>
+              <thead>
+                <tr style={{ background: '#f5f5f7' }}>
+                  <th style={{ padding: '16px 20px', fontSize: '17px', fontWeight: 700, color: '#6e6e73', borderBottom: '1px solid #d2d2d7' }}>Tiêu chí</th>
+                  <th style={{ padding: '16px 20px', fontSize: '17px', fontWeight: 700, color: '#1d1d1f', borderBottom: '1px solid #d2d2d7', borderLeft: '1px solid #d2d2d7' }}>
+                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                      <svg viewBox="0 0 814 1000" width="18" height="18" fill="currentColor">
+                        <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76.5 0-103.7 40.8-165.9 40.8s-105.6-57-155.5-127C46.7 790.7 0 663 0 541.8c0-194.4 126.4-297.5 250.8-297.5 66.1 0 121.2 43.4 162.7 43.4 39.5 0 101.1-46 176.3-46 28.5 0 130.9 2.6 198.3 99.2zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z"/>
+                      </svg>
+                      Apple
+                    </div>
+                  </th>
+                  <th style={{ padding: '16px 20px', fontSize: '17px', fontWeight: 700, color: '#1756a9', borderBottom: '1px solid #d2d2d7', borderLeft: '1px solid #d2d2d7' }}>
+                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                      <svg viewBox="0 0 100 50" width="32" height="16" fill="#0c4da2">
+                        <ellipse cx="50" cy="25" rx="48" ry="24" transform="rotate(-10 50 25)" />
+                        <text x="50" y="31" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="14" fill="#fff" text-anchor="middle" letter-spacing="1">SAMSUNG</text>
+                      </svg>
+                      Samsung
+                    </div>
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {COMPARE_DETAILS.map((row, idx) => (
+                  <tr
+                    key={idx}
+                    className={`ap-compare-tr ${selectedCompareIdx === idx ? 'ap-compare-tr--active' : ''}`}
+                    onClick={() => setSelectedCompareIdx(idx)}
+                  >
+                    <td style={{
+                      padding: '16px 20px',
+                      fontSize: '18px',
+                      fontWeight: 600,
+                      color: '#1d1d1f',
+                      background: '#fafafa',
+                      borderBottom: idx === 6 ? 'none' : '1px solid #e5e5ea',
+                      width: '25%'
+                    }}>
+                      {row.label}
+                    </td>
+                    <td style={{
+                      padding: '16px 20px',
+                      fontSize: '18px',
+                      color: '#3a3a3c',
+                      lineHeight: 1.5,
+                      borderBottom: idx === 6 ? 'none' : '1px solid #e5e5ea',
+                      borderLeft: '1px solid #e5e5ea',
+                      width: '37.5%'
+                    }}>
+                      {row.apple}
+                    </td>
+                    <td style={{
+                      padding: '16px 20px',
+                      fontSize: '18px',
+                      color: '#3a3a3c',
+                      lineHeight: 1.5,
+                      borderBottom: idx === 6 ? 'none' : '1px solid #e5e5ea',
+                      borderLeft: '1px solid #e5e5ea',
+                      width: '37.5%'
+                    }}>
+                      {row.samsung}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            {/* Right explanation panel (only visible when a row is selected) */}
+            {selectedCompareIdx !== null && (
+              <div className="ap-explain-panel" style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'flex-start',
+                alignItems: 'stretch',
+                background: '#fff',
+                position: 'relative',
+                animation: 'fadeInRight 0.3s cubic-bezier(0.25, 1, 0.5, 1)'
+              }}>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedCompareIdx(null);
+                  }}
+                  style={{
+                    position: 'absolute',
+                    top: 18,
+                    right: 18,
+                    background: 'none',
+                    border: 'none',
+                    fontSize: '20px',
+                    cursor: 'pointer',
+                    color: '#8e8e93',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: 32,
+                    height: 32,
+                    borderRadius: '50%',
+                    transition: 'all 0.2s',
+                    padding: 0
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.backgroundColor = '#f5f5f7';
+                    e.currentTarget.style.color = '#1d1d1f';
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                    e.currentTarget.style.color = '#8e8e93';
+                  }}
+                >
+                  ✕
+                </button>
+
+                <div className="ap-explain-header" style={{ paddingRight: 32 }}>
+                  Phân tích: {COMPARE_DETAILS[selectedCompareIdx].title}
+                </div>
+                
+                <div className="ap-explain-section">
+                  <div className="ap-explain-title" style={{ color: '#1d1d1f', display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <svg viewBox="0 0 814 1000" width="14" height="14" fill="currentColor">
+                      <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76.5 0-103.7 40.8-165.9 40.8s-105.6-57-155.5-127C46.7 790.7 0 663 0 541.8c0-194.4 126.4-297.5 250.8-297.5 66.1 0 121.2 43.4 162.7 43.4 39.5 0 101.1-46 176.3-46 28.5 0 130.9 2.6 198.3 99.2zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z"/>
+                    </svg>
+                    Apple (Góc nhìn Độc quyền)
+                  </div>
+                  <div className="ap-explain-body">
+                    {COMPARE_DETAILS[selectedCompareIdx].appleDetail}
+                  </div>
+                </div>
+
+                <div className="ap-explain-section">
+                  <div className="ap-explain-title" style={{ color: '#1756a9', display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <svg viewBox="0 0 100 50" width="28" height="14" fill="#0c4da2">
+                      <ellipse cx="50" cy="25" rx="48" ry="24" transform="rotate(-10 50 25)" />
+                      <text x="50" y="31" fontFamily="Arial, Helvetica, sans-serif" fontWeight="900" fontSize="14" fill="#fff" textAnchor="middle" letterSpacing="1">SAMSUNG</text>
+                    </svg>
+                    Samsung (Đối chiếu)
+                  </div>
+                  <div className="ap-explain-body">
+                    {COMPARE_DETAILS[selectedCompareIdx].samsungDetail}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </section>
 
@@ -526,24 +726,24 @@ export default function ApplePage() {
 
           <div className="ap-theory-grid ap-fade">
             {[
-              { img: appleJourneyMonopolyImg, theory: 'Tập trung sản xuất → Độc quyền', apple: 'Apple thống trị phân khúc cao cấp sau khi hàng loạt đối thủ (Nokia, BlackBerry, LG) rút lui.', link: '/#khai-niem' },
-              { img: appleMacbookImg, theory: 'Giá bán độc quyền cao', apple: 'iPhone, MacBook, Apple Watch — giá cao hơn chi phí sản xuất rất nhiều lần.', link: '/#gia-ca' },
-              { img: appleAppstoreImg, theory: 'Giá mua độc quyền thấp', apple: 'App Store 30% + ép Foxconn, Samsung Display giảm giá — thu lợi nhuận độc quyền.', link: '/#gia-ca' },
-              { img: appleWatchImg, theory: 'Tư bản tài chính & Đầu sỏ', apple: 'Apple nắm hàng trăm tỷ USD tiền mặt, chi phối nhiều ngành từ chip đến nội dung số.', link: '/#5-diem' },
-              { img: appleIcloudImg, theory: 'Xuất khẩu tư bản phổ biến', apple: 'Apple đầu tư nhà máy và trung tâm dữ liệu tại Việt Nam, Ấn Độ, Ireland...', link: '/#5-diem' },
-              { img: appleAirpodsImg, theory: 'Độc quyền không thủ tiêu cạnh tranh', apple: 'Apple vẫn cạnh tranh gay gắt với Samsung, Google — nhưng cạnh tranh ở cấp độ tập đoàn khổng lồ.', link: '/#canh-tranh' },
+              { num: '01', theory: 'Tập trung sản xuất → Độc quyền', apple: 'Apple thống trị phân khúc cao cấp sau khi hàng loạt đối thủ (Nokia, BlackBerry, LG) rút lui.', link: '/#khai-niem' },
+              { num: '02', theory: 'Giá bán độc quyền cao', apple: 'iPhone, MacBook, Apple Watch — giá cao hơn chi phí sản xuất rất nhiều lần.', link: '/#gia-ca' },
+              { num: '03', theory: 'Giá mua độc quyền thấp', apple: 'App Store 30% + ép Foxconn, Samsung Display giảm giá — thu lợi nhuận độc quyền.', link: '/#gia-ca' },
+              { num: '04', theory: 'Tư bản tài chính & Đầu sỏ', apple: 'Apple nắm hàng trăm tỷ USD tiền mặt, chi phối nhiều ngành từ chip đến nội dung số.', link: '/#5-diem' },
+              { num: '05', theory: 'Xuất khẩu tư bản phổ biến', apple: 'Apple đầu tư nhà máy và trung tâm dữ liệu tại Việt Nam, Ấn Độ, Ireland...', link: '/#5-diem' },
+              { num: '06', theory: 'Độc quyền không thủ tiêu cạnh tranh', apple: 'Apple vẫn cạnh tranh gay gắt với Samsung, Google — nhưng cạnh tranh ở cấp độ tập đoàn khổng lồ.', link: '/#canh-tranh' },
             ].map((item, i) => (
-              <div key={i} className="ap-theory-card" style={{ background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.06)', display: 'flex', flexDirection: 'column' }}>
-                <div style={{ borderRadius: 12, overflow: 'hidden', width: 44, height: 44, marginBottom: 16, border: '1px solid rgba(255,255,255,0.1)' }}>
-                  <img src={item.img} alt={item.theory} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <div key={i} className="ap-theory-card" style={{ background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.06)', display: 'flex', flexDirection: 'column', position: 'relative', borderRadius: '18px' }}>
+                <div style={{ position: 'absolute', top: 16, right: 20, fontSize: '36px', fontWeight: 800, color: 'rgba(255,255,255,0.05)', fontFamily: 'monospace', lineHeight: 1 }}>
+                  {item.num}
                 </div>
                 <div className="ap-theory-body" style={{ flex: 1 }}>
-                  <div className="ap-theory-label">Lý thuyết</div>
-                  <div className="ap-theory-theory">{item.theory}</div>
-                  <div className="ap-theory-label" style={{ marginTop: 10 }}>Apple</div>
-                  <div className="ap-theory-apple">{item.apple}</div>
+                  <div className="ap-theory-label" style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#8e8e93', marginBottom: 6 }}>Lý thuyết</div>
+                  <div className="ap-theory-theory" style={{ fontSize: '17px', fontWeight: 700, color: '#f5f5f7', marginBottom: 14, lineHeight: 1.4 }}>{item.theory}</div>
+                  <div className="ap-theory-label" style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#8e8e93', marginBottom: 6 }}>Apple</div>
+                  <div className="ap-theory-apple" style={{ fontSize: '14px', color: '#a1a1a6', lineHeight: 1.6 }}>{item.apple}</div>
                 </div>
-                <Link to={item.link} className="ap-theory-link">📖 Xem lý thuyết</Link>
+                <Link to={item.link} className="ap-theory-link" style={{ marginTop: 20 }}>📖 Xem lý thuyết</Link>
               </div>
             ))}
           </div>
@@ -553,7 +753,7 @@ export default function ApplePage() {
       {/* CTA FOOTER */}
       <section className="ap-cta ap-fade">
         <h2 className="ap-cta-title">Kiểm tra kiến thức</h2>
-        <p className="ap-cta-sub">20 câu trắc nghiệm · Cạnh tranh & Độc quyền</p>
+        <p className="ap-cta-sub">5 câu trắc nghiệm · Cạnh tranh &amp; Độc quyền</p>
         <div className="ap-cta-btns">
           <Link to="/quiz" className="ap-btn-primary">Làm Quiz ngay →</Link>
           <Link to="/" className="ap-btn-ghost">← Ôn lại Lý thuyết</Link>
@@ -562,3 +762,4 @@ export default function ApplePage() {
     </div>
   )
 }
+
