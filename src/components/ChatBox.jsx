@@ -64,10 +64,10 @@ Ba hình thức cạnh tranh khi có độc quyền:
 PHẦN VII – 5 ĐẶC ĐIỂM KINH TẾ CỦA CNTB ĐỘC QUYỀN (theo Lênin)
 Đặc điểm 01: Tập trung sản xuất và các tổ chức độc quyền
 Tích tụ sản xuất cao độ → hình thành liên minh lớn: Cartel, Syndicate, Trust, Consortium.
-- Cartel (Các-ten): Thỏa thuận về giá, thị trường, sản lượng nhưng độc lập sản xuất & lưu thông. Mức liên kết: 1/4.
-- Syndicate (Xanh-đi-ca): Độc lập sản xuất, nhưng khâu lưu thông do ban quản trị chung. Mức liên kết: 2/4.
-- Trust (Tô-rớt): Mất hoàn toàn tính độc lập sản xuất & lưu thông, sáp nhập nhận cổ phần. Mức liên kết: 3/4.
-- Consortium (Công-xoóc-xi-om): Mức cao nhất. Công ty đa ngành + ngân hàng hợp nhất dưới quyền tài phiệt đầu sỏ. Mức liên kết: 4/4.
+- Cartel: Thỏa thuận về giá, thị trường, sản lượng nhưng độc lập sản xuất & lưu thông. Mức liên kết: 1/4.
+- Syndicate: Độc lập sản xuất, nhưng khâu lưu thông do ban quản trị chung. Mức liên kết: 2/4.
+- Trust: Mất hoàn toàn tính độc lập sản xuất & lưu thông, sáp nhập nhận cổ phần. Mức liên kết: 3/4.
+- Consortium: Mức cao nhất. Công ty đa ngành + ngân hàng hợp nhất dưới quyền tài phiệt đầu sỏ. Mức liên kết: 4/4.
 Đặc điểm 02: Tư bản tài chính và Đầu sỏ tài chính
 Sự hòa nhập giữa tư bản ngân hàng độc quyền lớn nhất và tư bản công nghiệp độc quyền tạo nên thế lực tài phiệt chi phối toàn bộ nền kinh tế chính trị.
 Đặc điểm 03: Xuất khẩu tư bản trở thành phổ biến
@@ -169,14 +169,14 @@ function SimpleMarkdown({ text }) {
       {lines.map((line, i) => {
         if (!line.trim()) return <div key={i} style={{ height: 4 }} />
         // bullet
-        const isBullet = /^[•\-\*]\s/.test(line.trim())
+        const isBullet = /^[•\-*]\s/.test(line.trim())
         const content = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
         return (
           <div key={i} style={{ display: 'flex', gap: isBullet ? 8 : 0, alignItems: 'flex-start' }}>
             {isBullet && <span style={{ color: '#0071e3', flexShrink: 0, marginTop: 2 }}>•</span>}
             <span
               style={{ fontSize: 14, lineHeight: 1.6, color: '#f5f5f7' }}
-              dangerouslySetInnerHTML={{ __html: isBullet ? content.replace(/^[•\-\*]\s/, '') : content }}
+              dangerouslySetInnerHTML={{ __html: isBullet ? content.replace(/^[•\-*]\s/, '') : content }}
             />
           </div>
         )

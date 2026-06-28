@@ -853,10 +853,10 @@ export default function TheoryPage() {
               <div style={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr', gap: 32, alignItems: 'center', maxWidth: '1000px', margin: '0 auto' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 16 }}>
                   {[
-                    { name: 'Cartel (Các-ten)', level: 1, desc: 'Các doanh nghiệp thỏa thuận về giá cả, thị trường, sản lượng nhưng độc lập hoàn toàn về cả sản xuất và lưu thông.' },
-                    { name: 'Syndicate (Xanh-đi-ca)', level: 2, desc: 'Các doanh nghiệp giữ tính độc lập sản xuất, nhưng khâu lưu thông (mua bán nguyên vật liệu, bán sản phẩm) do ban quản trị chung quản trị.' },
-                    { name: 'Trust (Tô-rớt)', level: 3, desc: 'Doanh nghiệp mất hoàn toàn tính độc lập sản xuất và lưu thông, sáp nhập và nhận cổ phần tương ứng chịu sự quản trị thống nhất.' },
-                    { name: 'Consortium (Công-xoóc-xi-om)', level: 4, desc: 'Mức độ cao nhất. Các công ty đa ngành, ngân hàng hợp nhất dưới quyền chi phối tài chính tối cao của một nhóm tài phiệt đầu sỏ.' }
+                    { name: 'Cartel', level: 1, desc: 'Các doanh nghiệp thỏa thuận về giá cả, thị trường, sản lượng nhưng độc lập hoàn toàn về cả sản xuất và lưu thông.' },
+                    { name: 'Syndicate', level: 2, desc: 'Các doanh nghiệp giữ tính độc lập sản xuất, nhưng khâu lưu thông (mua bán nguyên vật liệu, bán sản phẩm) do ban quản trị chung quản trị.' },
+                    { name: 'Trust', level: 3, desc: 'Doanh nghiệp mất hoàn toàn tính độc lập sản xuất và lưu thông, sáp nhập và nhận cổ phần tương ứng chịu sự quản trị thống nhất.' },
+                    { name: 'Consortium', level: 4, desc: 'Mức độ cao nhất. Các công ty đa ngành, ngân hàng hợp nhất dưới quyền chi phối tài chính tối cao của một nhóm tài phiệt đầu sỏ.' }
                   ].map((item, idx) => (
                     <div key={idx} className="ap-dark-card" style={{ background: '#111', border: '1px solid rgba(255,255,255,0.06)', padding: 20, textAlign: 'left' }}>
                       <div style={{ fontSize: 19, fontWeight: 700, color: '#f5f5f7', marginBottom: 6 }}>{item.name}</div>
