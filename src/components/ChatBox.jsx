@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from 'react'
 // ─── Thay thế bằng API Key của Gemini sau khi nhận được ───
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || ''
 const GEMINI_MODEL = 'gemini-2.5-flash'
-
+//
 // ─── System prompt chứa toàn bộ nội dung lý thuyết MLN122 Chương 4 ───
 const SYSTEM_PROMPT = `Bạn là trợ lý học tập chuyên về môn Kinh tế Chính trị Mác - Lênin (MLN122), được nhúng trong bài thuyết trình về Chương 4: Cạnh tranh và Độc quyền.
 
