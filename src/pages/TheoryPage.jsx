@@ -29,14 +29,14 @@ const MINDMAP = {
       id: 'branch-tunan',
       label: 'Độc quyền tư nhân',
       x: 230, y: 240,
-      color: '#0a84ff',
+      color: '#0071e3',
       side: 'left',
       width: 175,
       nodes: [
         { id: 'khai-niem',    label: ['1. Khái niệm', 'Độc quyền'],      x: 90,  y: 85,  color: '#30d158' },
-        { id: 'nguyen-nhan', label: ['2. Nguyên nhân', 'hình thành'],   x: 90,  y: 168, color: '#bf5af2' },
+        { id: 'nguyen-nhan', label: ['2. Nguyên nhân', 'hình thành'],   x: 90,  y: 168, color: '#a855f7' },
         { id: 'gia-ca',      label: ['3. Giá cả &', 'Lợi nhuận Độc quyền'],   x: 90,  y: 250, color: '#ff9500' },
-        { id: 'canh-tranh',  label: ['6. Quan hệ', 'Cạnh tranh – Độc quyền'], x: 90,  y: 335, color: '#0a84ff' }
+        { id: 'canh-tranh',  label: ['6. Quan hệ', 'Cạnh tranh – Độc quyền'], x: 90,  y: 335, color: '#0071e3' }
       ]
     },
     {
@@ -75,7 +75,7 @@ function Accordion({ items }) {
         <div key={i} style={{
           background: '#000',
           border: '1px solid rgba(255,255,255,0.06)',
-          borderRadius: '14px',
+          borderRadius: '12px',
           overflow: 'hidden',
           transition: 'border-color 0.2s'
         }}>
@@ -86,9 +86,26 @@ function Accordion({ items }) {
               justifyContent: 'space-between',
               padding: '18px 24px',
               cursor: 'pointer',
-              userSelect: 'none'
+              userSelect: 'none',
+              outline: 'none'
             }}
             onClick={() => setOpen(open === i ? null : i)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                setOpen(open === i ? null : i);
+                e.preventDefault();
+              }
+            }}
+            tabIndex={0}
+            role="button"
+            aria-expanded={open === i}
+            aria-label={`Mở rộng thông tin ${item.title}`}
+            onFocus={(e) => {
+              e.currentTarget.parentElement.style.borderColor = '#0071e3';
+            }}
+            onBlur={(e) => {
+              e.currentTarget.parentElement.style.borderColor = 'rgba(255,255,255,0.06)';
+            }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
               <span style={{ fontSize: '18px' }}>{item.icon}</span>
@@ -112,19 +129,22 @@ function Accordion({ items }) {
             </svg>
           </div>
           <div style={{
-            maxHeight: open === i ? '300px' : '0',
-            overflow: 'hidden',
-            transition: 'max-height 0.3s ease-out'
+            display: 'grid',
+            gridTemplateRows: open === i ? '1fr' : '0fr',
+            transition: 'grid-template-rows 0.3s ease-out',
+            overflow: 'hidden'
           }}>
-            <div style={{
-              padding: '0 24px 20px 56px',
-              color: '#a1a1a6',
-              fontSize: '17px',
-              lineHeight: 1.6,
-              borderTop: '1px solid rgba(255,255,255,0.04)',
-              paddingTop: '16px'
-            }}>
-              {item.content}
+            <div style={{ minHeight: 0 }}>
+              <div style={{
+                padding: '0 24px 20px 56px',
+                color: '#a1a1a6',
+                fontSize: '17px',
+                lineHeight: 1.6,
+                borderTop: '1px solid rgba(255,255,255,0.04)',
+                paddingTop: '16px'
+              }}>
+                {item.content}
+              </div>
             </div>
           </div>
         </div>
@@ -172,6 +192,7 @@ export default function TheoryPage() {
       <style>{`
         .mindmap-node {
           cursor: pointer;
+          outline: none;
         }
         .mindmap-node circle {
           transition: fill 0.2s, r 0.2s, filter 0.2s;
@@ -180,14 +201,19 @@ export default function TheoryPage() {
           r: 9px;
           filter: drop-shadow(0 0 10px var(--node-color));
         }
-        .mindmap-node:hover text {
+        .mindmap-node:focus circle, .mindmap-node:focus-visible circle {
+          r: 9px;
+          stroke-width: 3px;
+          filter: drop-shadow(0 0 10px var(--node-color));
+        }
+        .mindmap-node:hover text, .mindmap-node:focus text {
           fill: #fff !important;
           font-weight: 700;
         }
         .mindmap-path {
           stroke-dasharray: 6;
           animation: pulse-line 6s linear infinite;
-          transition: stroke-width 0.3s, opacity 0.3s, stroke-dasharray 0.3s;
+          transition: opacity 0.3s, stroke-dasharray 0.3s;
         }
         .mindmap-path.hovered {
           animation: pulse-line 2s linear infinite;
@@ -391,6 +417,15 @@ export default function TheoryPage() {
                           onClick={() => setActiveTab(node.id)}
                           onMouseEnter={() => setHoveredNode(node.id)}
                           onMouseLeave={() => setHoveredNode(null)}
+                          tabIndex={0}
+                          role="button"
+                          aria-label={`Xem lý thuyết phần ${Array.isArray(node.label) ? node.label.join(' ') : node.label}`}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                              setActiveTab(node.id);
+                              e.preventDefault();
+                            }
+                          }}
                         >
                           <rect x={hitX} y="-23" width={hitW} height="46" fill="transparent" style={{ cursor: 'pointer' }} />
                           <circle cx="0" cy="0" r={isHovered ? 9 : 7} fill="#000" stroke={node.color} strokeWidth="2.5" style={{ transition: 'all 0.2s' }} />
@@ -442,7 +477,7 @@ export default function TheoryPage() {
                   </p>
                 </div>
                 <div style={{ position: 'relative', borderRadius: 18, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)' }}>
-                  <img src={monopolyPowerImg} alt="Monopoly Power Graph" style={{ width: '100%', display: 'block' }} />
+                  <img src={monopolyPowerImg} alt="Monopoly Power Graph" loading="lazy" style={{ width: '100%', display: 'block' }} />
                 </div>
               </div>
 
@@ -520,7 +555,7 @@ export default function TheoryPage() {
                   ))}
                 </div>
                 <div style={{ position: 'relative', borderRadius: 18, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)' }}>
-                  <img src={industrialMonopolyRiseImg} alt="Industrial Monopoly Rise" style={{ width: '100%', display: 'block' }} />
+                  <img src={industrialMonopolyRiseImg} alt="Industrial Monopoly Rise" loading="lazy" style={{ width: '100%', display: 'block' }} />
                 </div>
               </div>
 
@@ -553,8 +588,8 @@ export default function TheoryPage() {
                   </p>
                 </div>
 
-                <div className="ap-dark-card" style={{ borderTop: '3px solid #34c759', background: '#111' }}>
-                  <div style={{ display: 'inline-block', background: 'rgba(52,199,89,0.1)', color: '#34c759', borderRadius: 980, padding: '4px 12px', fontSize: 18, fontWeight: 600, marginBottom: 16 }}>
+                <div className="ap-dark-card" style={{ borderTop: '3px solid #30d158', background: '#111' }}>
+                  <div style={{ display: 'inline-block', background: 'rgba(48,209,88,0.1)', color: '#30d158', borderRadius: 980, padding: '4px 12px', fontSize: 18, fontWeight: 600, marginBottom: 16 }}>
                     📉 Giá cả Độc quyền Thấp
                   </div>
                   <h3 className="ap-dark-card-title" style={{ marginBottom: 12 }}>Ép giá khi mua vào</h3>
@@ -574,7 +609,7 @@ export default function TheoryPage() {
                   </div>
                 </div>
                 <div style={{ position: 'relative', borderRadius: 18, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)' }}>
-                  <img src={monopolyPriceSqueezeImg} alt="Monopoly Price Squeeze" style={{ width: '100%', display: 'block' }} />
+                  <img src={monopolyPriceSqueezeImg} alt="Monopoly Price Squeeze" loading="lazy" style={{ width: '100%', display: 'block' }} />
                 </div>
               </div>
             </div>
@@ -590,7 +625,7 @@ export default function TheoryPage() {
               
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: 32, alignItems: 'center', textAlign: 'left', margin: '40px 0' }}>
                 <div style={{ position: 'relative', borderRadius: 18, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)' }}>
-                  <img src={stateCapitalismImg} alt="State Monopoly Capitalism" style={{ width: '100%', display: 'block' }} />
+                  <img src={stateCapitalismImg} alt="State Monopoly Capitalism" loading="lazy" style={{ width: '100%', display: 'block' }} />
                 </div>
                 <div>
                   <blockquote className="ap-quote" style={{ margin: 0, borderLeftColor: '#ffd60a', background: 'rgba(255,214,10,0.04)' }}>
@@ -686,10 +721,10 @@ export default function TheoryPage() {
                   </ul>
                 </div>
 
-                <div className="ap-dark-card" style={{ borderTop: '3px solid #ff453a', background: '#111' }}>
+                <div className="ap-dark-card" style={{ borderTop: '3px solid #ff3b30', background: '#111' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
                     <span style={{ fontSize: 24 }}>❌</span>
-                    <h3 style={{ fontSize: 21, fontWeight: 700, color: '#ff453a' }}>Tác động Tiêu cực</h3>
+                    <h3 style={{ fontSize: 21, fontWeight: 700, color: '#ff6b63' }}>Tác động Tiêu cực</h3>
                   </div>
                   <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 16, padding: 0, textAlign: 'left' }}>
                     {[
@@ -698,7 +733,7 @@ export default function TheoryPage() {
                       ['Gia tăng bất bình đẳng xã hội', 'Lợi nhuận khổng lồ tập trung vào tay một nhóm nhỏ đầu sỏ tài chính, gia tăng khoảng cách giàu nghèo.']
                     ].map(([title, desc], idx) => (
                       <li key={idx} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', fontSize: 17, color: '#a1a1a6', lineHeight: 1.6 }}>
-                        <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#ff453a', flexShrink: 0, marginTop: 7 }} />
+                        <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#ff3b30', flexShrink: 0, marginTop: 7 }} />
                         <span><strong style={{ color: '#f5f5f7' }}>{title}:</strong> {desc}</span>
                       </li>
                     ))}
@@ -708,7 +743,7 @@ export default function TheoryPage() {
 
               <div style={{ display: 'flex', justifyContent: 'center', marginTop: 40 }}>
                 <div style={{ maxWidth: '640px', width: '100%', borderRadius: 18, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)' }}>
-                  <img src={monopolyDualImpactImg} alt="Monopoly Dual Impact" style={{ width: '100%', display: 'block' }} />
+                  <img src={monopolyDualImpactImg} alt="Monopoly Dual Impact" loading="lazy" style={{ width: '100%', display: 'block' }} />
                 </div>
               </div>
             </div>
@@ -720,18 +755,18 @@ export default function TheoryPage() {
           {activeTab === 'canh-tranh' && (
             <div>
               <p className="ap-eyebrow">Phần VI</p>
-              <h2 className="ap-heading">Quan hệ <span style={{ color: '#0a84ff' }}>Cạnh tranh & Độc quyền</span></h2>
+              <h2 className="ap-heading">Quan hệ <span style={{ color: '#2a92ff' }}>Cạnh tranh & Độc quyền</span></h2>
               <p className="ap-body" style={{ maxWidth: 640, margin: '0 auto 40px' }}>
                 Độc quyền không tiêu diệt cạnh tranh tự do mà cùng song tồn và tạo ra các hình thức cạnh tranh gay gắt hơn.
               </p>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 32, alignItems: 'center', marginBottom: 48 }}>
-                <blockquote className="ap-quote" style={{ margin: 0, width: '100%', borderLeftColor: '#0a84ff', background: 'rgba(10,132,255,0.04)' }}>
+                <blockquote className="ap-quote" style={{ margin: 0, width: '100%', borderLeftColor: '#0071e3', background: 'rgba(0,113,227,0.04)' }}>
                   <p style={{ fontSize: 20 }}>"Độc quyền sinh ra từ cạnh tranh tự do, độc quyền không tiêu diệt cạnh tranh, mà tồn tại bên trên và bên cạnh nó, từ đó sinh ra những mâu thuẫn và xung đột cực kỳ gay gắt và sâu sắc."</p>
-                  <cite style={{ color: '#0a84ff' }}>— V.I. Lênin</cite>
+                  <cite style={{ color: '#2a92ff' }}>— V.I. Lênin</cite>
                 </blockquote>
                 <div style={{ position: 'relative', borderRadius: 18, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)' }}>
-                  <img src={monopolyClashImg} alt="Monopoly Clash" style={{ width: '100%', display: 'block' }} />
+                  <img src={monopolyClashImg} alt="Monopoly Clash" loading="lazy" style={{ width: '100%', display: 'block' }} />
                 </div>
               </div>
 
@@ -758,12 +793,12 @@ export default function TheoryPage() {
                   }
                 ].map((item, idx) => (
                   <div key={idx} className="ap-theory-card" style={{ background: '#111', border: '1px solid rgba(255,255,255,0.06)', display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ fontSize: 32, fontWeight: 800, color: 'rgba(10,132,255,0.25)', fontFamily: 'monospace', lineHeight: 1 }}>{item.num}</div>
+                    <div style={{ fontSize: 32, fontWeight: 800, color: 'rgba(0,113,227,0.25)', fontFamily: 'monospace', lineHeight: 1 }}>{item.num}</div>
                     <h3 style={{ fontSize: 21, fontWeight: 700, color: '#f5f5f7', marginTop: 10, textAlign: 'left' }}>{item.title}</h3>
                     <p style={{ fontSize: 19, color: '#a1a1a6', lineHeight: 1.6, flex: 1, textAlign: 'left' }}>{item.desc}</p>
                     <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 16 }}>
                       {item.tags.map((t, i) => (
-                        <span key={i} style={{ background: 'rgba(10,132,255,0.1)', color: '#0a84ff', borderRadius: 980, padding: '3px 10px', fontSize: 16, fontWeight: 500 }}>
+                        <span key={i} style={{ background: 'rgba(0,113,227,0.1)', color: '#2a92ff', borderRadius: 980, padding: '3px 10px', fontSize: 16, fontWeight: 500 }}>
                           {t}
                         </span>
                       ))}
@@ -846,7 +881,7 @@ export default function TheoryPage() {
                   ))}
                 </div>
                 <div style={{ position: 'relative', borderRadius: 18, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)' }}>
-                  <img src={financialCapitalOligarchyImg} alt="Financial Capital Oligarchy" style={{ width: '100%', display: 'block' }} />
+                  <img src={financialCapitalOligarchyImg} alt="Financial Capital Oligarchy" loading="lazy" style={{ width: '100%', display: 'block' }} />
                 </div>
               </div>
             </div>
@@ -892,7 +927,7 @@ export default function TheoryPage() {
                   ))}
                 </div>
                 <div style={{ position: 'relative', borderRadius: 18, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)' }}>
-                  <img src={stateMonopolyIntegrationImg} alt="State Monopoly Integration" style={{ width: '100%', display: 'block' }} />
+                  <img src={stateMonopolyIntegrationImg} alt="State Monopoly Integration" loading="lazy" style={{ width: '100%', display: 'block' }} />
                 </div>
               </div>
             </div>
