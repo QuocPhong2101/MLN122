@@ -27,12 +27,12 @@ const NAV_ITEMS = [
 ]
 
 const ECO_ITEMS = [
-  { id: 'app-store', name: 'App Store', icon: '🏪', img: appleAppstoreImg, x: 320, y: 200, color: '#0071e3', desc: 'Cửa hàng ứng dụng duy nhất trên iOS. Apple thu phí 30% đối với lập trình viên và cấm tải phần mềm từ nguồn bên ngoài (sideloading) để kiểm soát 100% doanh thu.' },
-  { id: 'icloud', name: 'iCloud', icon: '☁️', img: appleIcloudImg, x: 260, y: 304, color: '#30d158', desc: 'Dịch vụ lưu trữ đám mây tích hợp sâu. Đồng bộ ảnh, danh bạ, sao lưu thiết bị. Rất khó chuyển dữ liệu sang Android vì không có giải pháp chính thức từ Apple.' },
-  { id: 'apple-watch', name: 'Apple Watch', icon: '⌚', img: appleWatchImg, x: 140, y: 304, color: '#ffd60a', desc: 'Đồng hồ thông minh bán chạy nhất thế giới, nhưng chỉ cho phép kết nối đầy đủ tính năng với iPhone. Người dùng đổi sang điện thoại Android sẽ mất luôn đồng hồ.' },
-  { id: 'apple-pay', name: 'Apple Pay', icon: '💳', img: applePayImg, x: 80, y: 200, color: '#ff3b30', desc: 'Ví điện tử độc quyền được quyền truy cập chip thanh toán NFC trên iPhone. Apple ngăn chặn các ứng dụng ngân hàng và ví điện tử đối thủ tiếp cận hạ tầng.' },
-  { id: 'imessage', name: 'iMessage & FaceTime', icon: '💬', img: appleImessageImg, x: 140, y: 96, color: '#ff9500', desc: 'Nhắn tin và gọi điện miễn phí giữa các thiết bị Apple. Sử dụng bóng tin nhắn màu xanh lá và giảm chất lượng ảnh gửi từ Android để tạo rào cản tâm lý.' },
-  { id: 'airpods', name: 'AirPods', icon: '🎧', img: appleAirpodsImg, x: 260, y: 96, color: '#a855f7', desc: 'Tai nghe tự động kết nối và chuyển đổi cực nhanh giữa các thiết bị Apple cùng iCloud. Khi dùng trên Android, AirPods mất hầu hết tính năng tiện ích.' }
+  { id: 'app-store', name: 'App Store', icon: '🏪', img: appleAppstoreImg, x: 320, y: 200, color: '#0071e3', textColor: '#2a92ff', desc: 'Cửa hàng ứng dụng duy nhất trên iOS. Apple thu phí 30% đối với lập trình viên và cấm tải phần mềm từ nguồn bên ngoài (sideloading) để kiểm soát 100% doanh thu.' },
+  { id: 'icloud', name: 'iCloud', icon: '☁️', img: appleIcloudImg, x: 260, y: 304, color: '#30d158', textColor: '#30d158', desc: 'Dịch vụ lưu trữ đám mây tích hợp sâu. Đồng bộ ảnh, danh bạ, sao lưu thiết bị. Rất khó chuyển dữ liệu sang Android vì không có giải pháp chính thức từ Apple.' },
+  { id: 'apple-watch', name: 'Apple Watch', icon: '⌚', img: appleWatchImg, x: 140, y: 304, color: '#ffd60a', textColor: '#ffd60a', desc: 'Đồng hồ thông minh bán chạy nhất thế giới, nhưng chỉ cho phép kết nối đầy đủ tính năng với iPhone. Người dùng đổi sang điện thoại Android sẽ mất luôn đồng hồ.' },
+  { id: 'apple-pay', name: 'Apple Pay', icon: '💳', img: applePayImg, x: 80, y: 200, color: '#ff3b30', textColor: '#ff6b63', desc: 'Ví điện tử độc quyền được quyền truy cập chip thanh toán NFC trên iPhone. Apple ngăn chặn các ứng dụng ngân hàng và ví điện tử đối thủ tiếp cận hạ tầng.' },
+  { id: 'imessage', name: 'iMessage & FaceTime', icon: '💬', img: appleImessageImg, x: 140, y: 96, color: '#ff9500', textColor: '#ff9500', desc: 'Nhắn tin và gọi điện miễn phí giữa các thiết bị Apple. Sử dụng bóng tin nhắn màu xanh lá và giảm chất lượng ảnh gửi từ Android để tạo rào cản tâm lý.' },
+  { id: 'airpods', name: 'AirPods', icon: '🎧', img: appleAirpodsImg, x: 260, y: 96, color: '#a855f7', textColor: '#c084fc', desc: 'Tai nghe tự động kết nối và chuyển đổi cực nhanh giữa các thiết bị Apple cùng iCloud. Khi dùng trên Android, AirPods mất hầu hết tính năng tiện ích.' }
 ]
 
 const COMPARE_DETAILS = [
@@ -158,6 +158,16 @@ export default function ApplePage() {
         }
         .eco-node:hover circle {
           r: 10px;
+          filter: drop-shadow(0 0 8px var(--eco-color));
+        }
+        .eco-node:focus {
+          outline: none;
+        }
+        .eco-node:focus circle, .eco-node:focus-visible circle {
+          outline: none;
+          r: 10px;
+          stroke: var(--eco-color);
+          stroke-width: 2px;
           filter: drop-shadow(0 0 8px var(--eco-color));
         }
         .eco-node--active circle {
@@ -320,7 +330,7 @@ export default function ApplePage() {
             ].map((step, i) => (
               <div key={i} className="ap-flow-step" style={{ '--step-color': step.color, transitionDelay: `${i * 0.1}s` }}>
                 <div className="ap-flow-icon" style={{ borderRadius: 12, overflow: 'hidden', width: 64, height: 64, margin: '0 auto 12px', border: '1px solid rgba(255,255,255,0.1)' }}>
-                  <img src={step.img} alt={step.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src={step.img} alt={step.title} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
                 <div className="ap-flow-year">{step.year}</div>
                 <div className="ap-flow-title">{step.title}</div>
@@ -343,7 +353,7 @@ export default function ApplePage() {
               </p>
             </div>
             <div className="ap-fade" style={{ borderRadius: 18, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)' }}>
-              <img src={appleEcosystemLockedImg} alt="Locked Ecosystem Orbit illustration" style={{ width: '100%', display: 'block' }} />
+              <img src={appleEcosystemLockedImg} alt="Locked Ecosystem Orbit illustration" loading="lazy" style={{ width: '100%', display: 'block' }} />
             </div>
           </div>
         </div>
@@ -369,7 +379,7 @@ export default function ApplePage() {
             ].map(p => (
               <div key={p.name} className="ap-product-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div className="ap-product-image" style={{ width: '100%', height: 160, borderRadius: 12, overflow: 'hidden', marginBottom: 16, border: '1px solid rgba(255,255,255,0.06)' }}>
-                  <img src={p.img} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src={p.img} alt={p.name} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
                 <div className="ap-product-name" style={{ fontSize: 19 }}>{p.name}</div>
                 <div className="ap-product-price">{p.price}</div>
@@ -392,8 +402,8 @@ export default function ApplePage() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, alignItems: 'center', margin: '0 auto', maxWidth: '900px', background: '#000', borderRadius: 24, padding: '32px 24px', border: '1px solid rgba(255,255,255,0.05)' }}>
               
               {/* Left Column: SVG Orbit connection map */}
-              <div style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
-                <svg width="400" height="400" viewBox="0 0 400 400">
+              <div style={{ display: 'flex', justifyContent: 'center', position: 'relative', width: '100%' }}>
+                <svg viewBox="0 0 400 400" style={{ width: '100%', height: 'auto', maxWidth: '400px', maxHeight: '400px' }}>
                   <defs>
                     <clipPath id="center-clip">
                       <circle cx="0" cy="0" r="45" />
@@ -443,6 +453,15 @@ export default function ApplePage() {
                       transform={`translate(${item.x}, ${item.y})`}
                       style={{ '--eco-color': item.color }}
                       onClick={() => setSelectedEco(item)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          setSelectedEco(item);
+                          e.preventDefault();
+                        }
+                      }}
+                      tabIndex={0}
+                      role="button"
+                      aria-label={`Xem chi tiết về ${item.name}`}
                     >
                       <circle cx="0" cy="0" r="20" fill="#1c1c1e" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5" />
                       <image href={item.img} x="-20" y="-20" height="40" width="40" clipPath={`url(#clip-${item.id})`} />
@@ -453,11 +472,11 @@ export default function ApplePage() {
 
               {/* Right Column: Connection details display */}
               <div style={{ textAlign: 'left', minHeight: '260px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <span style={{ fontSize: '14px', fontWeight: 700, color: selectedEco.color, textTransform: 'uppercase', letterSpacing: '0.1em', display: 'block', marginBottom: 8 }}>
+                <span style={{ fontSize: '14px', fontWeight: 700, color: selectedEco.textColor, textTransform: 'uppercase', letterSpacing: '0.1em', display: 'block', marginBottom: 8 }}>
                   KẾT NỐI HỆ SINH THÁI
                 </span>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 12 }}>
-                  <div style={{ width: 44, height: 44, borderRadius: 10, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.12)' }}>
+                  <div style={{ width: 44, height: 44, borderRadius: 12, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.12)' }}>
                     <img src={selectedEco.img} alt={selectedEco.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   </div>
                   <h4 style={{ fontSize: '23px', fontWeight: 800, color: '#f5f5f7', margin: 0 }}>
@@ -467,7 +486,7 @@ export default function ApplePage() {
                 <p style={{ fontSize: '18px', color: '#a1a1a6', lineHeight: 1.6, margin: 0 }}>
                   {selectedEco.desc}
                 </p>
-                <div style={{ marginTop: 24, padding: '12px 16px', background: 'rgba(255,255,255,0.03)', borderRadius: '10px', borderLeft: `3px solid ${selectedEco.color}` }}>
+                <div style={{ marginTop: 24, padding: '12px 16px', background: 'rgba(255,255,255,0.03)', borderRadius: '12px', border: `1px solid ${selectedEco.color}33` }}>
                   <span style={{ fontSize: '15px', color: '#a1a1a6' }}>
                     <strong>Biểu hiện độc quyền:</strong> Hạn chế lựa chọn của khách hàng và ép nhà sản xuất phần mềm phải chấp nhận luật lệ riêng của Apple.
                   </span>
@@ -580,11 +599,11 @@ export default function ApplePage() {
                       Apple
                     </div>
                   </th>
-                  <th style={{ padding: '16px 20px', fontSize: '17px', fontWeight: 700, color: '#1756a9', borderBottom: '1px solid #d2d2d7', borderLeft: '1px solid #d2d2d7' }}>
+                  <th style={{ padding: '16px 20px', fontSize: '17px', fontWeight: 700, color: '#0c4da2', borderBottom: '1px solid #d2d2d7', borderLeft: '1px solid #d2d2d7' }}>
                     <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
                       <svg viewBox="0 0 100 50" width="32" height="16" fill="#0c4da2">
                         <ellipse cx="50" cy="25" rx="48" ry="24" transform="rotate(-10 50 25)" />
-                        <text x="50" y="31" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="14" fill="#fff" text-anchor="middle" letter-spacing="1">SAMSUNG</text>
+                        <text x="50" y="31" font-family="sans-serif" font-weight="900" font-size="14" fill="#fff" text-anchor="middle" letter-spacing="1">SAMSUNG</text>
                       </svg>
                       Samsung
                     </div>
@@ -652,6 +671,7 @@ export default function ApplePage() {
                     e.stopPropagation();
                     setSelectedCompareIdx(null);
                   }}
+                  aria-label="Đóng bảng so sánh chi tiết"
                   style={{
                     position: 'absolute',
                     top: 18,
@@ -699,10 +719,10 @@ export default function ApplePage() {
                 </div>
 
                 <div className="ap-explain-section">
-                  <div className="ap-explain-title" style={{ color: '#1756a9', display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <div className="ap-explain-title" style={{ color: '#0c4da2', display: 'flex', alignItems: 'center', gap: 6 }}>
                     <svg viewBox="0 0 100 50" width="28" height="14" fill="#0c4da2">
                       <ellipse cx="50" cy="25" rx="48" ry="24" transform="rotate(-10 50 25)" />
-                      <text x="50" y="31" fontFamily="Arial, Helvetica, sans-serif" fontWeight="900" fontSize="14" fill="#fff" textAnchor="middle" letterSpacing="1">SAMSUNG</text>
+                      <text x="50" y="31" fontFamily="sans-serif" fontWeight="900" fontSize="14" fill="#fff" textAnchor="middle" letterSpacing="1">SAMSUNG</text>
                     </svg>
                     Samsung (Đối chiếu)
                   </div>
