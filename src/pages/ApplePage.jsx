@@ -1,4 +1,4 @@
-﻿import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import appleEcosystemLockedImg from '../assets/apple_ecosystem_locked.png'
 import appleIphoneCenterImg from '../assets/apple_iphone_center.png'
@@ -757,6 +757,8 @@ export default function ApplePage() {
         <div className="ap-cta-btns">
           <Link to="/quiz" className="ap-btn-primary">Làm Quiz ngay →</Link>
           <Link to="/" className="ap-btn-ghost">← Ôn lại Lý thuyết</Link>
+          <Link to="/ai-usage" className="ap-btn-ghost">AI Usage</Link>
+          <Link to="/references" className="ap-btn-ghost">Tài liệu tham khảo</Link>
         </div>
       </section>
     </div>

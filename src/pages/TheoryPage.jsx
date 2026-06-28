@@ -232,6 +232,8 @@ export default function TheoryPage() {
               Case Study
             </Link>
             <Link to="/quiz" className="ap-nav-cta">Quiz →</Link>
+            <Link to="/ai-usage" className="ap-nav-cta" style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.15)', color: '#a1a1a6', fontSize: 13 }}>AI Usage</Link>
+            <Link to="/references" className="ap-nav-cta" style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.15)', color: '#a1a1a6', fontSize: 13 }}>Tài liệu</Link>
           </div>
         </div>
       </nav>
