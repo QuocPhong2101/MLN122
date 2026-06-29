@@ -164,6 +164,7 @@ export default function TheoryPage() {
 
   useEffect(() => {
     window.location.hash = activeTab
+    window.scrollTo(0, 0)
     // Trigger tab change visual reset
     if (tabContentRef.current) {
       tabContentRef.current.classList.remove('ap-visible')
